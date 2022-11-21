@@ -17,4 +17,8 @@ public class PlayerTest extends TestCase {
         p.setScore(15);
         assertEquals(15,p.getScore());
     }
+    public void testAddScore(){
+        p.addScore(5);
+        assertEquals(5,p.getScore());
+    }
 }
