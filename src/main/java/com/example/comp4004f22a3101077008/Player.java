@@ -27,6 +27,6 @@ public class Player {
         return this.score;
     }
     public void addScore(int num){
-
+        this.score += num;
     }
 }
