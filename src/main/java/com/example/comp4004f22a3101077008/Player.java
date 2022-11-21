@@ -21,9 +21,9 @@ public class Player {
         return this.cards.get(i);
     }
     public void setScore(int num){
-        
+        this.score = num;
     }
     public int getScore(){
-
+        return this.score;
     }
 }
