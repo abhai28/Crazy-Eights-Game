@@ -7,4 +7,7 @@ public class CardTest extends TestCase {
     public void testGetSuit(){
         assertEquals("H",c.getSuit());
     }
+    public void testGetRank(){
+        assertEquals("A",c.getRank());
+    }
 }
