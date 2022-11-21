@@ -13,4 +13,8 @@ public class PlayerTest extends TestCase {
         p.addCard(c);
         assertEquals("H",p.getCard(0).getSuit());
     }
+    public void testSetScore(){
+        p.setScore(15);
+        assertEquals(15,p.getScore());
+    }
 }
