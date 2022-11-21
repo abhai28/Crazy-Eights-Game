@@ -7,4 +7,7 @@ public class Card {
         this.suit = s;
         this.rank = r;
     }
+    public String getSuit(){
+        return this.suit;
+    }
 }
