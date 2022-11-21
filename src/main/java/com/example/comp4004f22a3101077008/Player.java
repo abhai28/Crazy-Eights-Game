@@ -9,4 +9,7 @@ public class Player {
         this.playerID = id;
         this.cards = new ArrayList<>();
     }
+    public int getID(){
+        return this.playerID;
+    }
 }
