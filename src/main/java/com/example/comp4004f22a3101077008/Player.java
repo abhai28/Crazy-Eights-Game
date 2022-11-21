@@ -12,4 +12,10 @@ public class Player {
     public int getID(){
         return this.playerID;
     }
+    public void addCard(Card c){
+        this.cards.add(c);
+    }
+    public Card getCard(int i){
+        return this.cards.get(i);
+    }
 }
