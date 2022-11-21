@@ -8,4 +8,9 @@ public class PlayerTest extends TestCase {
     public void testGetID(){
         assertEquals(1,p.getID());
     }
+    public void testAddCard(){
+        Card c = new Card("H","A");
+        p.addCard(c);
+        assertEquals("H",p.getCard(1).getSuit());
+    }
 }
