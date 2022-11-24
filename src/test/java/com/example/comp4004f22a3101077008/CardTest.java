@@ -1,13 +1,15 @@
 package com.example.comp4004f22a3101077008;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import junit.framework.TestCase;
-
-public class CardTest extends TestCase {
+public class CardTest{
     Card c = new Card("H","A");
-    public void testGetSuit(){
+    @Test
+    void testGetSuit(){
         assertEquals("H",c.getSuit());
     }
-    public void testGetRank(){
+    @Test
+    void testGetRank(){
         assertEquals("A",c.getRank());
     }
 }
