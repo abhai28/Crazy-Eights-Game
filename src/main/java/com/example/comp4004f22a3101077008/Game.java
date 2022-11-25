@@ -144,6 +144,34 @@ public class Game {
     }
 
     public void calculateScore(){
-
+        for(Player p : players){
+            if(p.handSize()==0){
+                p.setScore(0);
+            }
+            else{
+                int score = 0;
+                for(Card c : p.cards){
+                    if(c.getRank().equals("Q")||c.getRank().equals("K")||c.getRank().equals("J")||c.getRank().equals("10")){
+                        score += 10;
+                    }
+                    else if(c.getRank().equals("8")){
+                        score += 50;
+                    }
+                    else{
+                        switch (c.getRank()) {
+                            case "A" -> score += 1;
+                            case "2" -> score += 2;
+                            case "3" -> score += 3;
+                            case "4" -> score += 4;
+                            case "5" -> score += 5;
+                            case "6" -> score += 6;
+                            case "7" -> score += 7;
+                            case "9" -> score += 9;
+                        }
+                    }
+                }
+                p.setScore(score);
+            }
+        }
     }
 }

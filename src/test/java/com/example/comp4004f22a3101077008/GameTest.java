@@ -143,6 +143,7 @@ public class GameTest {
             game.players.get(i).addCard(c4);
             game.players.get(i).addCard(c5);
         }
+        game.calculateScore();
         assertEquals(0,game.players.get(0).getScore());
         for(int i=1;i<game.players.size();i++){
             assertEquals(77,game.players.get(i).getScore());
