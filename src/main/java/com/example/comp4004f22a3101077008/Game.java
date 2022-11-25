@@ -40,6 +40,12 @@ public class Game {
         }
     }
     public boolean drawCard(int id){
-        return false;
+        if(cards.size()==0){
+            return false;
+        }
+        else{
+            players.get(id-1).addCard(cards.remove(0));
+            return true;
+        }
     }
 }
