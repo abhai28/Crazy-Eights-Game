@@ -142,4 +142,8 @@ public class Game {
         }
         return res;
     }
+
+    public void calculateScore(){
+
+    }
 }

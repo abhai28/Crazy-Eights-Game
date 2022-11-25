@@ -123,4 +123,29 @@ public class GameTest {
         res = game.playCard(1,"4D");
         assertEquals("not played",res);
     }
+
+    @Test
+    void testCalculateScore(){
+        for(int i=0;i<4;i++){
+            Player p = new Player(i+1);
+            game.players.add(p);
+        }
+        Card c1 = new Card("D","Q");
+        Card c2 = new Card("D","5");
+        Card c3 = new Card("D","8");
+        Card c4 = new Card("D","10");
+        Card c5 = new Card("D","2");
+
+        for(int i=1;i<game.players.size();i++){
+            game.players.get(i).addCard(c1);
+            game.players.get(i).addCard(c2);
+            game.players.get(i).addCard(c3);
+            game.players.get(i).addCard(c4);
+            game.players.get(i).addCard(c5);
+        }
+        assertEquals(0,game.players.get(0).getScore());
+        for(int i=1;i<game.players.size();i++){
+            assertEquals(77,game.players.get(i).getScore());
+        }
+    }
 }
