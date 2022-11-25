@@ -56,4 +56,16 @@ public class Game {
             return true;
         }
     }
+    public boolean checkQueen(String r){
+        return r.equals("Q");
+    }
+    public boolean checkAces(String r){
+        return r.equals("A");
+    }
+    public boolean check8(String r){
+        return r.equals("8");
+    }
+    public boolean check2(String r){
+        return r.equals("2");
+    }
 }
