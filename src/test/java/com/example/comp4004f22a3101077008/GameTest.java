@@ -62,4 +62,10 @@ public class GameTest {
         assertNotEquals("8",game.topCard.getRank());
         assertNotNull(game.topCard);
     }
+
+    @Test
+    void testCheckQueen(){
+        game.checkQueen("Q");
+    }
+    
 }
