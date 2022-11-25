@@ -9,7 +9,15 @@ public class Game {
     ArrayList<Card> cards = new ArrayList<>();
     Card topCard;
     public void startGame(){
-
+        populateDeck();
+        shuffleDeck();
+        topCard = cards.remove(0);
+        while(topCard.getRank().equals("8")){
+            Card tmp = topCard;
+            cards.add(tmp);
+            topCard = cards.remove(0);
+        }
+        dealCards();
     }
     public void populateDeck() {
         String [] suit = {"S","C","D","H"};
