@@ -71,5 +71,9 @@ public class GameTest {
     void testCheckAces(){
         assertTrue(game.checkAces("A"));
     }
+    @Test
+    void testCheck8(){
+        assertTrue(game.checkAces("8"));
+    }
     
 }
