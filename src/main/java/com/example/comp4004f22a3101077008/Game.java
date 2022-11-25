@@ -70,6 +70,76 @@ public class Game {
     }
 
     public String playCard(int id, String c) {
-        return "";
+        String [] m = c.split("");
+        String suit = m[1];
+        String rank = m[0];
+        String res = "";
+        Player p = players.get(id-1);
+        if(check8(rank)){
+            if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
+                for(int i=0;i<p.handSize();i++){
+                    if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
+                        topCard = players.get(id-1).cards.remove(i);
+                    }
+                }
+                res = "8 Played";
+            }
+            else{
+                res = "not played";
+            }
+        }
+        else if(checkAces(rank)){
+            if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
+                for(int i=0;i<p.handSize();i++){
+                    if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
+                        topCard = players.get(id-1).cards.remove(i);
+                    }
+                }
+                res = "A Played";
+            }
+            else{
+                res = "not played";
+            }
+        }
+        else if(checkQueen(rank)){
+            if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
+                for(int i=0;i<p.handSize();i++){
+                    if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
+                        topCard = players.get(id-1).cards.remove(i);
+                    }
+                }
+                res = "Q Played";
+            }
+            else{
+                res = "not played";
+            }
+        }
+        else if(check2(rank)){
+            if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
+                for(int i=0;i<p.handSize();i++){
+                    if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
+                        topCard = players.get(id-1).cards.remove(i);
+                    }
+                }
+                res = "2 Played";
+            }
+            else{
+                res = "not played";
+            }
+        }
+        else{
+            if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
+                for(int i=0;i<p.handSize();i++){
+                    if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
+                        topCard = players.get(id-1).cards.remove(i);
+                    }
+                }
+                res = "Played";
+            }
+            else{
+                res = "not played";
+            }
+        }
+        return res;
     }
 }
