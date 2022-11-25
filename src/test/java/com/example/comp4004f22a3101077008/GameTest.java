@@ -110,5 +110,17 @@ public class GameTest {
         game.players.get(0).cards.set(0,c);
         res = game.playCard(1,"8S");
         assertEquals("8 Played",res);
+
+        game.topCard = new Card("S","2");
+        c = new Card("S","8");
+        game.players.get(0).cards.set(0,c);
+        res = game.playCard(1,"4S");
+        assertEquals("Played",res);
+
+        game.topCard = new Card("S","2");
+        c = new Card("S","8");
+        game.players.get(0).cards.set(0,c);
+        res = game.playCard(1,"4D");
+        assertEquals("not played",res);
     }
 }
