@@ -27,7 +27,7 @@ public class Game {
     }
 
     public boolean dealCards() {
-        if(cards.size() == 0){
+        if(cards.size() <(players.size()*5)){
             return false;
         }
         else{
