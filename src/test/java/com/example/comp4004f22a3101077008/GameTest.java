@@ -20,5 +20,19 @@ public class GameTest {
         game.shuffleDeck();
         assertNotEquals(r,game.cards.get(0).getRank());
     }
-    
+    @Test
+    void testDealCards(){
+        for(int i=0;i<4;i++){
+            Player p = new Player(i+1);
+            game.players.add(p);
+        }
+
+        assertFalse(game.dealCards());
+        game.populateDeck();
+        game.shuffleDeck();
+        assertTrue(game.dealCards());
+        for(Player p :game.players){
+            assertEquals(5,p.handSize());
+        }
+    }
 }
