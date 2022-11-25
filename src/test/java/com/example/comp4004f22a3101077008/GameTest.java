@@ -79,4 +79,6 @@ public class GameTest {
     void testCheck2(){
         assertTrue(game.check2("2"));
     }
+
+    
 }
