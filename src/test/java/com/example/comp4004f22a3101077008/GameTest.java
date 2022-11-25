@@ -80,5 +80,35 @@ public class GameTest {
         assertTrue(game.check2("2"));
     }
 
-    
+    @Test
+    void testPlayCard(){
+        for(int i=0;i<4;i++){
+            Player p = new Player(i+1);
+            game.players.add(p);
+        }
+        game.startGame();
+        game.topCard = new Card("S","Q");
+        Card c = new Card("D","Q");
+        game.players.get(0).cards.set(0,c);
+        String res = game.playCard(1,"QD");
+        assertEquals("Q Played",res);
+
+        game.topCard = new Card("S","2");
+        c = new Card("D","2");
+        game.players.get(0).cards.set(0,c);
+        res = game.playCard(1,"2D");
+        assertEquals("2 Played",res);
+
+        game.topCard = new Card("S","A");
+        c = new Card("D","A");
+        game.players.get(0).cards.set(0,c);
+        res = game.playCard(1,"AD");
+        assertEquals("A Played",res);
+
+        game.topCard = new Card("S","2");
+        c = new Card("S","8");
+        game.players.get(0).cards.set(0,c);
+        res = game.playCard(1,"8S");
+        assertEquals("8 Played",res);
+    }
 }

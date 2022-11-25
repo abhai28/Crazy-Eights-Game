@@ -68,4 +68,8 @@ public class Game {
     public boolean check2(String r){
         return r.equals("2");
     }
+
+    public String playCard(int id, String c) {
+        return "";
+    }
 }
