@@ -25,4 +25,10 @@ public class PlayerTest{
         p.addScore(5);
         assertEquals(5,p.getScore());
     }
+    @Test
+    void testHandSize(){
+        Card c = new Card("H","A");
+        p.addCard(c);
+        assertEquals(1,p.handSize());
+    }
 }

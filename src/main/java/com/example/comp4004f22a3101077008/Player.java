@@ -29,4 +29,8 @@ public class Player {
     public void addScore(int num){
         this.score += num;
     }
+
+    public int handSize() {
+        return 0;
+    }
 }
