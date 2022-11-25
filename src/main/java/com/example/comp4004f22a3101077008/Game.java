@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Game {
     ArrayList<Player> players = new ArrayList<>();
     ArrayList<Card> cards = new ArrayList<>();
-    Card topCard = new Card();
+    Card topCard;
     public void startGame(){
 
     }

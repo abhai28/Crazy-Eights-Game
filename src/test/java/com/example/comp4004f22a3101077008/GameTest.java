@@ -47,4 +47,18 @@ public class GameTest {
         assertTrue(game.drawCard(1));
         assertEquals(1,game.players.get(0).handSize());
     }
+    @Test
+    void testStartGame(){
+        for(int i=0;i<4;i++){
+            Player p = new Player(i+1);
+            game.players.add(p);
+        }
+        assertNull(game.topCard);
+        game.startGame();
+        assertEquals(32,game.cards.size());
+        for(Player p :game.players){
+            assertEquals(5,p.handSize());
+        }
+        assertNotNull(game.topCard);
+    }
 }
