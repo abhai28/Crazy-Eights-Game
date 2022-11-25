@@ -55,10 +55,11 @@ public class GameTest {
         }
         assertNull(game.topCard);
         game.startGame();
-        assertEquals(32,game.cards.size());
+        assertEquals(31,game.cards.size());
         for(Player p :game.players){
             assertEquals(5,p.handSize());
         }
+        assertNotEquals("8",game.topCard.getRank());
         assertNotNull(game.topCard);
     }
 }
