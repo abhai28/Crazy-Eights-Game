@@ -35,4 +35,16 @@ public class GameTest {
             assertEquals(5,p.handSize());
         }
     }
+    @Test
+    void testDrawCard(){
+        for(int i=0;i<4;i++){
+            Player p = new Player(i+1);
+            game.players.add(p);
+        }
+        assertFalse(game.drawCard(1));
+        game.populateDeck();
+        game.shuffleDeck();
+        assertTrue(game.drawCard(1));
+        assertEquals(1,game.players.get(0).handSize());
+    }
 }

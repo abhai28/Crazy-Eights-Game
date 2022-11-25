@@ -39,4 +39,7 @@ public class Game {
             return true;
         }
     }
+    public boolean drawCard(int id){
+        return false;
+    }
 }
