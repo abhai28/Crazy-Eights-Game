@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
     Game game = new Game();
@@ -16,8 +15,10 @@ public class GameTest {
     }
     @Test
     void testShuffleDeck(){
-        ArrayList<Card> testCard = game.cards;
+        game.populateDeck();
+        String r = game.cards.get(0).getRank();
         game.shuffleDeck();
-        assertNotEquals(testCard.get(0).getRank(),game.cards.get(0).getRank());
+        assertNotEquals(r,game.cards.get(0).getRank());
     }
+    
 }
