@@ -31,6 +31,6 @@ public class Player {
     }
 
     public int handSize() {
-        return 0;
+        return this.cards.size();
     }
 }
