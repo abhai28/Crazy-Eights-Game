@@ -65,10 +65,11 @@ public class GameTest {
 
     @Test
     void testCheckQueen(){
-        game.checkQueen("Q");
+        assertTrue(game.checkQueen("Q"));
     }
     @Test
     void testCheckAces(){
-        game.checkAces("A");
+        assertTrue(game.checkAces("A"));
     }
+    
 }
