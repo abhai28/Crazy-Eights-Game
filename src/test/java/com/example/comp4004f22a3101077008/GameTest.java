@@ -67,5 +67,8 @@ public class GameTest {
     void testCheckQueen(){
         game.checkQueen("Q");
     }
-    
+    @Test
+    void testCheckAces(){
+        game.checkAces("A");
+    }
 }
