@@ -4,5 +4,5 @@ import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 @Suite
-@SelectClasses({CardTest.class, PlayerTest.class})
+@SelectClasses({CardTest.class, PlayerTest.class, GameTest.class})
 public class TestSuite {}
