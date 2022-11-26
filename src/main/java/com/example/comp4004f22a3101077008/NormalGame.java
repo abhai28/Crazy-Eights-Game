@@ -23,17 +23,19 @@ public class NormalGame implements Game{
         return cards;
     }
     public void setCards(ArrayList<Card> cs){
-        cards = cs;
+        this.cards = cs;
     }
-
+    public void addPlayer(Player p){
+        this.players.add(p);
+    }
     public void startGame(){
         populateDeck();
         shuffleDeck();
-        topCard = cards.remove(0);
+        this.topCard = cards.remove(0);
         while(topCard.getRank().equals("8")){
-            Card tmp = topCard;
-            cards.add(tmp);
-            topCard = cards.remove(0);
+            Card tmp = this.topCard;
+            this.cards.add(tmp);
+            this.topCard = this.cards.remove(0);
         }
         dealCards();
     }

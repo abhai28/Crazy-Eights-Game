@@ -7,15 +7,15 @@ import org.springframework.web.util.HtmlUtils;
 
 @Controller
 public class GameController {
-    Game game = new Game();
+    Game game = new NormalGame();
     int numPlayers = 0;
     @MessageMapping("/connect")
     @SendTo("/topic/message")
     public Message greeting(ConnectionMessage message) throws Exception {
         numPlayers++;
         Player p = new Player(numPlayers);
-        game.players.add(p);
-        System.out.println(game.players.size());
+        game.addPlayer(p);
+        System.out.println(game.getPlayers().size());
         return new Message(HtmlUtils.htmlEscape(message.getName()+p.getID()));
     }
 }

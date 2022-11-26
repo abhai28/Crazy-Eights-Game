@@ -22,4 +22,5 @@ public interface Game {
     public void setPlayers(ArrayList<Player> ps);
     public ArrayList<Card> getCards();
     public void setCards(ArrayList<Card> cs);
+    public void addPlayer(Player p);
 }
