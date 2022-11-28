@@ -29,11 +29,12 @@ public class GameController {
     @MessageMapping("/start")
     @SendTo("/topic/message")
     public Message start(ConnectionMessage message) throws Exception{
-        game.startGame(gd.getTopCard(),gd.getCards(),gd.getPlayers());
+        gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
         StringBuilder msg = new StringBuilder();
         msg.append("Start ");
         msg.append("TopCard ");
         msg.append(gd.getTopCard().getRank()).append(gd.getTopCard().getSuit());
+        System.out.println(gd.getTopCard().getRank());
         for(int i=0;i<numPlayers;i++){
             msg.append(" ").append(gd.getPlayers().get(i).getID());
             msg.append(" Cards:");

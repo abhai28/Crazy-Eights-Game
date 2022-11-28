@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameLogic{
-    public void startGame(Card topCard, ArrayList<Card> cards,ArrayList<Player> players){
+    public Card startGame(ArrayList<Card> cards,ArrayList<Player> players){
         populateDeck(cards);
         shuffleDeck(cards);
-        topCard = cards.remove(0);
+        Card topCard = cards.remove(0);
         while(topCard.getRank().equals("8")){
             Card tmp = topCard;
             cards.add(tmp);
             topCard = cards.remove(0);
         }
         dealCards(cards,players);
+        return topCard;
     }
     public void populateDeck(ArrayList<Card> cards) {
         String [] suit = {"S","C","D","H"};

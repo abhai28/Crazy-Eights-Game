@@ -57,7 +57,7 @@ public class GameTest {
         }
         assertEquals("",gd.getTopCard().getRank());
         assertEquals("",gd.getTopCard().getSuit());
-        game.startGame(gd.getTopCard(),gd.getCards(),gd.getPlayers());
+        gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
         assertEquals(31,gd.getCards().size());
         for(Player p :gd.getPlayers()){
             assertEquals(5,p.handSize());
@@ -89,7 +89,7 @@ public class GameTest {
             Player p = new Player(i+1);
             gd.getPlayers().add(p);
         }
-        game.startGame(gd.getTopCard(),gd.getCards(),gd.getPlayers());
+        gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
         Card tc = new Card("S","Q");
         gd.setTopCard(tc);
         Card c = new Card("D","Q");
