@@ -3,43 +3,19 @@ package com.example.comp4004f22a3101077008;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class NormalGame implements Game{
-    ArrayList<Player> players = new ArrayList<>();
-    ArrayList<Card> cards = new ArrayList<>();
-    Card topCard;
-    public Card getTopCard(){
-        return topCard;
-    }
-    public void setTopCard(Card c){
-        topCard = c;
-    }
-    public ArrayList<Player> getPlayers(){
-        return players;
-    }
-    public void setPlayers(ArrayList<Player> ps){
-        players = ps;
-    }
-    public ArrayList<Card> getCards(){
-        return cards;
-    }
-    public void setCards(ArrayList<Card> cs){
-        this.cards = cs;
-    }
-    public void addPlayer(Player p){
-        this.players.add(p);
-    }
-    public void startGame(){
-        populateDeck();
-        shuffleDeck();
-        this.topCard = cards.remove(0);
+public class GameLogic{
+    public void startGame(Card topCard, ArrayList<Card> cards,ArrayList<Player> players){
+        populateDeck(cards);
+        shuffleDeck(cards);
+        topCard = cards.remove(0);
         while(topCard.getRank().equals("8")){
-            Card tmp = this.topCard;
-            this.cards.add(tmp);
-            this.topCard = this.cards.remove(0);
+            Card tmp = topCard;
+            cards.add(tmp);
+            topCard = cards.remove(0);
         }
-        dealCards();
+        dealCards(cards,players);
     }
-    public void populateDeck() {
+    public void populateDeck(ArrayList<Card> cards) {
         String [] suit = {"S","C","D","H"};
         String [] rank = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
         for (String s : suit) {
@@ -50,11 +26,11 @@ public class NormalGame implements Game{
         }
     }
 
-    public void shuffleDeck() {
+    public void shuffleDeck(ArrayList<Card> cards) {
         Collections.shuffle(cards);
     }
 
-    public boolean dealCards() {
+    public boolean dealCards(ArrayList<Card> cards, ArrayList<Player> players) {
         if(cards.size() <(players.size()*5)){
             return false;
         }
@@ -67,12 +43,12 @@ public class NormalGame implements Game{
             return true;
         }
     }
-    public boolean drawCard(int id){
+    public boolean drawCard(ArrayList<Card> cards, Player p){
         if(cards.size()==0){
             return false;
         }
         else{
-            players.get(id-1).addCard(cards.remove(0));
+            p.addCard(cards.remove(0));
             return true;
         }
     }
@@ -89,17 +65,16 @@ public class NormalGame implements Game{
         return r.equals("2");
     }
 
-    public String playCard(int id, String c) {
+    public String playCard(Player p, String c, Card topCard) {
         String [] m = c.split("");
         String suit = m[1];
         String rank = m[0];
         String res = "";
-        Player p = players.get(id-1);
         if(check8(rank)){
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = players.get(id-1).cards.remove(i);
+                        topCard = p.cards.remove(i);
                     }
                 }
                 res = "8 Played";
@@ -112,7 +87,7 @@ public class NormalGame implements Game{
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = players.get(id-1).cards.remove(i);
+                        topCard = p.cards.remove(i);
                     }
                 }
                 res = "A Played";
@@ -125,7 +100,7 @@ public class NormalGame implements Game{
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = players.get(id-1).cards.remove(i);
+                        topCard = p.cards.remove(i);
                     }
                 }
                 res = "Q Played";
@@ -138,7 +113,7 @@ public class NormalGame implements Game{
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = players.get(id-1).cards.remove(i);
+                        topCard = p.cards.remove(i);
                     }
                 }
                 res = "2 Played";
@@ -151,7 +126,7 @@ public class NormalGame implements Game{
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = players.get(id-1).cards.remove(i);
+                        topCard = p.cards.remove(i);
                     }
                 }
                 res = "Played";
@@ -163,7 +138,7 @@ public class NormalGame implements Game{
         return res;
     }
 
-    public void calculateScore(){
+    public void calculateScore(ArrayList<Player> players){
         for(Player p : players){
             if(p.handSize()==0){
                 p.setScore(0);

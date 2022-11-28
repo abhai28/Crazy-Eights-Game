@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
-    Game game = new NormalGame();
+    GameLogic game = new GameLogic();
+    GameData gd = new NonRiggedData();
     @Test
     void testPopulateDeck(){
-        game.populateDeck();
-        assertEquals(52,game.getCards().size());
+        game.populateDeck(gd.getCards());
+        assertEquals(52,gd.getCards().size());
     }
     @Test
     void testShuffleDeck(){
-        game.populateDeck();
-        String r = game.getCards().get(0).getRank();
-        game.shuffleDeck();
-        assertNotEquals(r,game.getCards().get(0).getRank());
+        game.populateDeck(gd.getCards());
+        String r = gd.getCards().get(0).getRank();
+        game.shuffleDeck(gd.getCards());
+        assertNotEquals(r,gd.getCards().get(0).getRank());
     }
     @Test
     void testDealCards(){
@@ -27,12 +28,12 @@ public class GameTest {
             Player p = new Player(i+1);
             ps.add(p);
         }
-        game.setPlayers(ps);
-        assertFalse(game.dealCards());
-        game.populateDeck();
-        game.shuffleDeck();
-        assertTrue(game.dealCards());
-        for(Player p :game.getPlayers()){
+        gd.setPlayers(ps);
+        assertFalse(game.dealCards(gd.getCards(),gd.getPlayers()));
+        game.populateDeck(gd.getCards());
+        game.shuffleDeck(gd.getCards());
+        assertTrue(game.dealCards(gd.getCards(),gd.getPlayers()));
+        for(Player p :gd.getPlayers()){
             assertEquals(5,p.handSize());
         }
     }
@@ -40,28 +41,29 @@ public class GameTest {
     void testDrawCard(){
         for(int i=0;i<4;i++){
             Player p = new Player(i+1);
-            game.getPlayers().add(p);
+            gd.getPlayers().add(p);
         }
-        assertFalse(game.drawCard(1));
-        game.populateDeck();
-        game.shuffleDeck();
-        assertTrue(game.drawCard(1));
-        assertEquals(1,game.getPlayers().get(0).handSize());
+        assertFalse(game.drawCard(gd.getCards(),gd.getPlayers().get(0)));
+        game.populateDeck(gd.getCards());
+        game.shuffleDeck(gd.getCards());
+        assertTrue(game.drawCard(gd.getCards(),gd.getPlayers().get(0)));
+        assertEquals(1,gd.getPlayers().get(0).handSize());
     }
     @Test
     void testStartGame(){
         for(int i=0;i<4;i++){
             Player p = new Player(i+1);
-            game.getPlayers().add(p);
+            gd.addPlayer(p);
         }
-        assertNull(game.getTopCard());
-        game.startGame();
-        assertEquals(31,game.getCards().size());
-        for(Player p :game.getPlayers()){
+        assertEquals("",gd.getTopCard().getRank());
+        assertEquals("",gd.getTopCard().getSuit());
+        game.startGame(gd.getTopCard(),gd.getCards(),gd.getPlayers());
+        assertEquals(31,gd.getCards().size());
+        for(Player p :gd.getPlayers()){
             assertEquals(5,p.handSize());
         }
-        assertNotEquals("8",game.getTopCard().getRank());
-        assertNotNull(game.getTopCard());
+        assertNotEquals("8",gd.getTopCard().getRank());
+        assertNotNull(gd.getTopCard());
     }
 
     @Test
@@ -85,49 +87,49 @@ public class GameTest {
     void testPlayCard(){
         for(int i=0;i<4;i++){
             Player p = new Player(i+1);
-            game.getPlayers().add(p);
+            gd.getPlayers().add(p);
         }
-        game.startGame();
+        game.startGame(gd.getTopCard(),gd.getCards(),gd.getPlayers());
         Card tc = new Card("S","Q");
-        game.setTopCard(tc);
+        gd.setTopCard(tc);
         Card c = new Card("D","Q");
-        game.getPlayers().get(0).cards.set(0,c);
-        String res = game.playCard(1,"QD");
+        gd.getPlayers().get(0).cards.set(0,c);
+        String res = game.playCard(gd.getPlayers().get(0), "QD",gd.getTopCard());
         assertEquals("Q Played",res);
 
         tc = new Card("S","2");
-        game.setTopCard(tc);
+        gd.setTopCard(tc);
         c = new Card("D","2");
-        game.getPlayers().get(0).cards.set(0,c);
-        res = game.playCard(1,"2D");
+        gd.getPlayers().get(0).cards.set(0,c);
+        res = game.playCard(gd.getPlayers().get(0), "2D",gd.getTopCard());
         assertEquals("2 Played",res);
 
         tc = new  Card("S","A");
-        game.setTopCard(tc);
+        gd.setTopCard(tc);
         c = new Card("D","A");
-        game.getPlayers().get(0).cards.set(0,c);
-        res = game.playCard(1,"AD");
+        gd.getPlayers().get(0).cards.set(0,c);
+        res = game.playCard(gd.getPlayers().get(0), "AD",gd.getTopCard());
         assertEquals("A Played",res);
 
         tc = new Card("S","2");
-        game.setTopCard(tc);
+        gd.setTopCard(tc);
         c = new Card("S","8");
-        game.getPlayers().get(0).cards.set(0,c);
-        res = game.playCard(1,"8S");
+        gd.getPlayers().get(0).cards.set(0,c);
+        res = game.playCard(gd.getPlayers().get(0), "8S",gd.getTopCard());
         assertEquals("8 Played",res);
 
         tc = new Card("S","2");
-        game.setTopCard(tc);
+        gd.setTopCard(tc);
         c = new Card("S","8");
-        game.getPlayers().get(0).cards.set(0,c);
-        res = game.playCard(1,"4S");
+        gd.getPlayers().get(0).cards.set(0,c);
+        res = game.playCard(gd.getPlayers().get(0), "4S",gd.getTopCard());
         assertEquals("Played",res);
 
         tc = new Card("S","2");
-        game.setTopCard(tc);
+        gd.setTopCard(tc);
         c = new Card("S","8");
-        game.getPlayers().get(0).cards.set(0,c);
-        res = game.playCard(1,"4D");
+        gd.getPlayers().get(0).cards.set(0,c);
+        res = game.playCard(gd.getPlayers().get(0), "4D",gd.getTopCard());
         assertEquals("not played",res);
     }
 
@@ -135,7 +137,7 @@ public class GameTest {
     void testCalculateScore(){
         for(int i=0;i<4;i++){
             Player p = new Player(i+1);
-            game.getPlayers().add(p);
+            gd.getPlayers().add(p);
         }
         Card c1 = new Card("D","Q");
         Card c2 = new Card("D","5");
@@ -143,17 +145,17 @@ public class GameTest {
         Card c4 = new Card("D","10");
         Card c5 = new Card("D","2");
 
-        for(int i=1;i<game.getPlayers().size();i++){
-            game.getPlayers().get(i).addCard(c1);
-            game.getPlayers().get(i).addCard(c2);
-            game.getPlayers().get(i).addCard(c3);
-            game.getPlayers().get(i).addCard(c4);
-            game.getPlayers().get(i).addCard(c5);
+        for(int i=1;i<gd.getPlayers().size();i++){
+            gd.getPlayers().get(i).addCard(c1);
+            gd.getPlayers().get(i).addCard(c2);
+            gd.getPlayers().get(i).addCard(c3);
+            gd.getPlayers().get(i).addCard(c4);
+            gd.getPlayers().get(i).addCard(c5);
         }
-        game.calculateScore();
-        assertEquals(0,game.getPlayers().get(0).getScore());
-        for(int i=1;i<game.getPlayers().size();i++){
-            assertEquals(77,game.getPlayers().get(i).getScore());
+        game.calculateScore(gd.getPlayers());
+        assertEquals(0,gd.getPlayers().get(0).getScore());
+        for(int i=1;i<gd.getPlayers().size();i++){
+            assertEquals(77,gd.getPlayers().get(i).getScore());
         }
     }
 }
