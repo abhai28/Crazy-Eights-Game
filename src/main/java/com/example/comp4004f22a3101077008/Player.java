@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 public class Player {
     private final int playerID;
+    private String username;
     ArrayList<Card> cards;
     private int score;
     public Player(int id){
         this.playerID = id;
         this.cards = new ArrayList<>();
         this.score = 0;
+    }
+    public Player(int id,String un){
+        this.playerID = id;
+        this.cards = new ArrayList<>();
+        this.score = 0;
+        this.username = un;
     }
     public int getID(){
         return this.playerID;
@@ -30,7 +37,16 @@ public class Player {
         this.score += num;
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+    public void setUsername(String un){
+        this.username = un;
+    }
+
     public int handSize() {
         return this.cards.size();
     }
+
+
 }

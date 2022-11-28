@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crazy Eights</title>
+    <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="app.js"></script>
+
+</head>
+<body>
+    <div class="col-9">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand">Crazy Eights</a>
+                <button class="btn btn-outline-success" type="button" style="visibility: hidden;" id="startBtn">Start Game</button>
+                <form class="d-flex">
+                    <input class="form-control me-2" id="user" placeholder="Username" aria-label="Username">
+                    <button class="btn btn-outline-success" id="usernameBtn" type="submit">Submit</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
