@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class GameController {
     GameLogic game = new GameLogic();
+
     GameData gd = new NonRiggedData();
     int numPlayers = 0;
     @MessageMapping("/connect")
@@ -19,9 +20,7 @@ public class GameController {
         else{
             Thread.sleep(500);
             Player p = new Player(numPlayers);
-            System.out.println(message.getMessage());
             gd.addPlayer(p);
-            System.out.println(gd.getPlayers().size());
             return new Message("id " + p.getID());
         }
     }
@@ -34,10 +33,8 @@ public class GameController {
         msg.append("Start ");
         msg.append("TopCard ");
         msg.append(gd.getTopCard().getRank()).append(gd.getTopCard().getSuit());
-        System.out.println(gd.getTopCard().getRank());
         for(int i=0;i<numPlayers;i++){
             msg.append(" ").append(gd.getPlayers().get(i).getID());
-            msg.append(" Cards:");
             for(Card c : gd.getPlayers().get(i).cards){
                 msg.append(" ").append(c.getRank()).append(c.getSuit());
             }

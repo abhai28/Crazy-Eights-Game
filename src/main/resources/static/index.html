@@ -12,22 +12,42 @@
 
 </head>
 <body>
-    <div class="col-9">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand">Crazy Eights</a>
-                <button class="btn btn-outline-success" type="button" style="visibility: hidden;" id="startBtn">Start Game</button>
-                <form class="d-flex">
-                    <input class="form-control me-2" id="user" placeholder="Username" aria-label="Username">
-                    <button class="btn btn-outline-success" id="usernameBtn" type="submit">Submit</button>
-                </form>
+
+    <div class = "container">
+        <div class="col-9">
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand">Crazy Eights</a>
+                    <button class="btn btn-outline-success" type="button" style="visibility: hidden;" id="startBtn">Start Game</button>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-success" id="usernameBtn" type="submit" style="visibility: visible">Register</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+        <div class="row" id = "topCardRow">
+            <div class="col-9" id = "Score">
+                <ul>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ul>
             </div>
-        </nav>
+            <div class="col-9" id = "topCardCol">
+
+            </div>
+        </div>
     </div>
 
     <div class="container">
+
         <div class="row">
-            <div class="col-9">
+            <div class="row" id = "hand">
             </div>
         </div>
     </div>
