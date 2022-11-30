@@ -13,15 +13,13 @@
 </head>
 <body>
 
-    <div class = "container">
+    <div class = "container" id="nav">
         <div class="col-9">
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand">Crazy Eights</a>
                     <button class="btn btn-outline-success" type="button" style="visibility: hidden;" id="startBtn">Start Game</button>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-success" id="usernameBtn" type="submit" style="visibility: visible">Register</button>
-                    </form>
+                    <button class="btn btn-outline-success" id="usernameBtn" type="submit" style="visibility: visible">Register</button>
                 </div>
             </nav>
         </div>
@@ -29,17 +27,19 @@
 
 
     <div class="container">
-
-        <div class="row" id = "topCardRow">
-            <div class="col-9" id = "Score">
-                <ul>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
+        <div class = "row">
+            <div class = "col-first">
+                <ul style="list-style: none;" id ="scoreList">
+                    <li>Score:</li>
                 </ul>
             </div>
-            <div class="col-9" id = "topCardCol">
 
+            <div class="col-second" id = "topCardCol">
+
+            </div>
+
+            <div class="col-last">
+                <button class="btn btn-outline-success" id="draw" type="submit" style="visibility: hidden">Draw Card</button>
             </div>
         </div>
     </div>
