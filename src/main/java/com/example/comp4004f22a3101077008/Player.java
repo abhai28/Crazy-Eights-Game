@@ -48,5 +48,13 @@ public class Player {
         return this.cards.size();
     }
 
-
+    public int getCardIndex(String r, String s){
+        int i=0;
+        for(int j=0;j<cards.size();j++){
+            if(cards.get(j).getSuit().equals(s)&&cards.get(j).getRank().equals(r)){
+                i = j;
+            }
+        }
+        return i;
+    }
 }

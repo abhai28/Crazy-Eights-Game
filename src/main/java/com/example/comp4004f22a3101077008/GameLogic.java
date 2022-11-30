@@ -5,6 +5,9 @@ import java.util.Collections;
 
 public class GameLogic{
     public Card startGame(ArrayList<Card> cards,ArrayList<Player> players){
+        for(Player p: players){
+            p.cards.clear();
+        }
         populateDeck(cards);
         shuffleDeck(cards);
         Card topCard = cards.remove(0);
@@ -75,65 +78,60 @@ public class GameLogic{
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = p.cards.remove(i);
+                        res = "8Played";
                     }
                 }
-                res = "8 Played";
             }
             else{
-                res = "not played";
+                res = "notplayed";
             }
         }
         else if(checkAces(rank)){
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = p.cards.remove(i);
+                        res = "APlayed";
                     }
                 }
-                res = "A Played";
             }
             else{
-                res = "not played";
+                res = "notplayed";
             }
         }
         else if(checkQueen(rank)){
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = p.cards.remove(i);
+                        res = "QPlayed";
                     }
                 }
-                res = "Q Played";
             }
             else{
-                res = "not played";
+                res = "notplayed";
             }
         }
         else if(check2(rank)){
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = p.cards.remove(i);
+                        res = "2Played";
                     }
                 }
-                res = "2 Played";
             }
             else{
-                res = "not played";
+                res = "notplayed";
             }
         }
         else{
             if(topCard.getRank().equals(rank)||topCard.getSuit().equals(suit)){
                 for(int i=0;i<p.handSize();i++){
                     if(p.getCard(i).getSuit().equals(suit)&&p.getCard(i).getRank().equals(rank)){
-                        topCard = p.cards.remove(i);
+                        res = "Played";
                     }
                 }
-                res = "Played";
             }
             else{
-                res = "not played";
+                res = "notplayed";
             }
         }
         return res;

@@ -95,32 +95,32 @@ public class GameTest {
         Card c = new Card("D","Q");
         gd.getPlayers().get(0).cards.set(0,c);
         String res = game.playCard(gd.getPlayers().get(0), "QD",gd.getTopCard());
-        assertEquals("Q Played",res);
+        assertEquals("QPlayed",res);
 
         tc = new Card("S","2");
         gd.setTopCard(tc);
         c = new Card("D","2");
         gd.getPlayers().get(0).cards.set(0,c);
         res = game.playCard(gd.getPlayers().get(0), "2D",gd.getTopCard());
-        assertEquals("2 Played",res);
+        assertEquals("2Played",res);
 
         tc = new  Card("S","A");
         gd.setTopCard(tc);
         c = new Card("D","A");
         gd.getPlayers().get(0).cards.set(0,c);
         res = game.playCard(gd.getPlayers().get(0), "AD",gd.getTopCard());
-        assertEquals("A Played",res);
+        assertEquals("APlayed",res);
 
         tc = new Card("S","2");
         gd.setTopCard(tc);
         c = new Card("S","8");
         gd.getPlayers().get(0).cards.set(0,c);
         res = game.playCard(gd.getPlayers().get(0), "8S",gd.getTopCard());
-        assertEquals("8 Played",res);
+        assertEquals("8Played",res);
 
         tc = new Card("S","2");
         gd.setTopCard(tc);
-        c = new Card("S","8");
+        c = new Card("S","4");
         gd.getPlayers().get(0).cards.set(0,c);
         res = game.playCard(gd.getPlayers().get(0), "4S",gd.getTopCard());
         assertEquals("Played",res);
@@ -130,7 +130,7 @@ public class GameTest {
         c = new Card("S","8");
         gd.getPlayers().get(0).cards.set(0,c);
         res = game.playCard(gd.getPlayers().get(0), "4D",gd.getTopCard());
-        assertEquals("not played",res);
+        assertEquals("notplayed",res);
     }
 
     @Test
