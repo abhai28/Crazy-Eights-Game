@@ -10,4 +10,8 @@ public interface GameData {
     public ArrayList<Card> getCards();
     public void setCards(ArrayList<Card> cs);
     public void addPlayer(Player p);
+    public String getDirection();
+    public void setDirection(String dir);
+    public void setCurrentPlayer(int id);
+    public int getCurrentPlayer();
 }

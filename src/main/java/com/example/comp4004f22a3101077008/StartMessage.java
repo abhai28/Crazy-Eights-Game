@@ -16,10 +16,13 @@ public class StartMessage {
     private String id4;
     private String score4;
 
+    private String direction;
+
+    private String currentPlayer;
     public StartMessage() {
     }
 
-    public StartMessage(String content, String topCard, String id1,String card1,String id2,String card2,String id3, String card3, String id4, String card4, String score1, String score2, String score3, String score4) {
+    public StartMessage(String content, String topCard, String id1,String card1,String id2,String card2,String id3, String card3, String id4, String card4, String score1, String score2, String score3, String score4, String direction, String currentPlayer) {
         this.content = content;
         this.topCard = topCard;
         this.id1 = id1;
@@ -34,6 +37,8 @@ public class StartMessage {
         this.score2 = score2;
         this.score3 = score3;
         this.score4 = score4;
+        this.direction = direction;
+        this.currentPlayer = currentPlayer;
     }
 
     public String getContent() {
@@ -52,4 +57,6 @@ public class StartMessage {
     public String getScore3(){return score3;}
     public String getId4(){return id4;}
     public String getScore4(){return score4;}
+    public String getDirection(){return direction;}
+    public String getCurrentPlayer(){return currentPlayer;}
 }
