@@ -1,7 +1,7 @@
 var stompClient = null;
 let id = "0";
 let username = "";
-
+let direction = "";
 let cards = []
 function connect(){
     var socket = new SockJS('/crazy8-websocket');
@@ -46,7 +46,17 @@ function connect(){
                }
                console.log(cards)
                addCards()
+               if(msg.currentPlayer===id){
+                   $("#hand :input").attr("disabled",false);
+                   $("draw").attr("disabled",false);
+               }
                document.getElementById("draw").style.visibility = "visible";
+               direction = msg.direction;
+               let x = document.createElement("LABEL");
+               let t = document.createTextNode(direction);
+               x.setAttribute("id","direction")
+               x.appendChild(t);
+               document.getElementById("nav").appendChild(x);
            }
            else if(msg.content ==="draw"){
                if(msg.id===id){
@@ -111,6 +121,7 @@ function addCards (){
         card.setAttribute("id",cards[i]);
         card.setAttribute("class","card")
         card.setAttribute("onclick","sendCard('"+cards[i]+"')")
+        card.setAttribute('disabled','');
         document.getElementById("hand").appendChild(card)
     }
 }
