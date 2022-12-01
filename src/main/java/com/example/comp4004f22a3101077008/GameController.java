@@ -50,9 +50,10 @@ public class GameController {
         String [] msg = message.getMessage().split(" ");
         int id = Integer.parseInt(msg[0]);
         String [] car = msg[1].split("");
+        System.out.println("Player: "+msg[1]);
+        System.out.println("TopCard: "+ gd.getTopCard().getRank()+gd.getTopCard().getSuit());
         String res = game.playCard(gd.getPlayers().get(id-1), msg[1],gd.getTopCard());
         int ci = gd.getPlayers().get(id-1).getCardIndex(car[0],car[1]);
-
         switch(res){
             case"8Played"->{
                 setNextTurn();
@@ -62,7 +63,7 @@ public class GameController {
                     card.append(" ").append(c.getRank()).append(c.getSuit());
                 }
                 // add game over function
-                return new PlayMessage("8Played",String.valueOf(id),card.toString());
+                return new PlayMessage("8Played",String.valueOf(id),card.toString(), gd.getTopCard().getRank()+gd.getTopCard().getSuit());
             }
             case "APlayed"->{
                 gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
@@ -77,7 +78,7 @@ public class GameController {
                 for(Card c : gd.getPlayers().get(id-1).cards){
                     card.append(" ").append(c.getRank()).append(c.getSuit());
                 }
-                return new PlayMessage("APlayed",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),gd.getDirection());
+                return new PlayMessage("APlayed",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),gd.getDirection(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
             }
             case "Played"->{
                 gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
@@ -86,10 +87,39 @@ public class GameController {
                 for(Card c : gd.getPlayers().get(id-1).cards){
                     card.append(" ").append(c.getRank()).append(c.getSuit());
                 }
-                return new PlayMessage("Played",String.valueOf(id), card.toString(),String.valueOf(gd.getCurrentPlayer()));
+                return new PlayMessage("Played",String.valueOf(id), card.toString(),String.valueOf(gd.getCurrentPlayer()), gd.getTopCard().getRank()+gd.getTopCard().getSuit());
+            }
+            case "2Played"->{
+                gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
+                setNextTurn();
+                StringBuilder card = new StringBuilder();
+                for(Card c : gd.getPlayers().get(id-1).cards){
+                    card.append(" ").append(c.getRank()).append(c.getSuit());
+                }
+                return new PlayMessage("Played",String.valueOf(id), card.toString(),String.valueOf(gd.getCurrentPlayer()), gd.getTopCard().getRank()+gd.getTopCard().getSuit());
+            }
+            case "QPlayed" ->{
+                gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
+                if(gd.getDirection().equals("right")){
+                    gd.setCurrentPlayer(gd.getCurrentPlayer()-2);
+                    if(gd.getCurrentPlayer()<1){
+                        gd.setCurrentPlayer(4);
+                    }
+                }
+                else{
+                    gd.setCurrentPlayer(gd.getCurrentPlayer()+2);
+                    if(gd.getCurrentPlayer()>4){
+                        gd.setCurrentPlayer(1);
+                    }
+                }
+                StringBuilder card = new StringBuilder();
+                for(Card c : gd.getPlayers().get(id-1).cards){
+                    card.append(" ").append(c.getRank()).append(c.getSuit());
+                }
+                return new PlayMessage("Played",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()), gd.getTopCard().getRank()+gd.getTopCard().getSuit());
             }
             default -> {
-                return new PlayMessage("NotPlayed",String.valueOf(id),"Invalid Entry");
+                return new PlayMessage("NotPlayed",String.valueOf(id),"Invalid Entry", gd.getTopCard().getRank()+gd.getTopCard().getSuit());
             }
         }
     }
