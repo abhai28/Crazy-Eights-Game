@@ -7,6 +7,12 @@ public class PlayMessage {
     private String turn;
     private String direction;
     private String topCard;
+    private String score1;
+    private String score2;
+    private String score3;
+    private String score4;
+    private String winner;
+    private String nextRound;
     public PlayMessage() {
     }
     public PlayMessage(String content, String id, String card, String topCard){
@@ -16,12 +22,30 @@ public class PlayMessage {
         this.topCard = topCard;
     }
     public PlayMessage(String content, String id, String card, String turn,String direction, String topCard) {
-        this.content = content;
-        this.id = id;
-        this.card = card;
-        this.turn = turn;
-        this.direction = direction;
-        this.topCard = topCard;
+        if(content.equals("Game Over")){
+            this.content = content;
+            this.score1 = id;
+            this.score2 = card;
+            this.score3 = turn;
+            this.score4 = direction;
+            this.winner = topCard;
+        }
+        else if(content.equals("Round Over")){
+            this.content = content;
+            this.score1 = id;
+            this.score2 = card;
+            this.score3 = turn;
+            this.score4 = direction;
+            this.nextRound = topCard;
+        }
+        else{
+            this.content = content;
+            this.id = id;
+            this.card = card;
+            this.turn = turn;
+            this.direction = direction;
+            this.topCard = topCard;
+        }
     }
     public PlayMessage(String content, String id, String card, String turn, String topCard){
         this.content = content;
@@ -39,4 +63,28 @@ public class PlayMessage {
     public String getTurn(){return turn;}
     public String getDirection(){return direction;}
     public String getTopCard(){return topCard;}
+
+    public String getScore1() {
+        return score1;
+    }
+
+    public String getScore2() {
+        return score2;
+    }
+
+    public String getScore3() {
+        return score3;
+    }
+
+    public String getScore4() {
+        return score4;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public String getNextRound() {
+        return nextRound;
+    }
 }
