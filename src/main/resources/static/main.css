@@ -1,8 +1,14 @@
+body{
+    background-color: gainsboro;
+}
 .card{
     width: 75px;
     height: 150px;
 }
-
+.topCard{
+    width: 75px;
+    height: 150px;
+}
 .container{
     display: flex;
     justify-content: center;
@@ -11,7 +17,6 @@
 #hand{
     margin-top:50px;
 }
-
 #topCardRow{
     display: flex;
     justify-content: space-between;
@@ -26,4 +31,8 @@
 
 #direction{
     padding-left: 30px;
+}
+
+#8Played{
+    margin-top:40px;
 }

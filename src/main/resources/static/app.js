@@ -26,7 +26,7 @@ function connect(){
            else if(msg.content === "Start"){
                let topCard = document.createElement("IMG");
                topCard.setAttribute("src","/cards/"+msg.topCard+".svg")
-               topCard.setAttribute("class","card")
+               topCard.setAttribute("class","topCard")
                topCard.setAttribute("id",msg.topCard)
                document.getElementById("topCardCol").appendChild(topCard)
                addScore("1",msg.score1)
@@ -45,11 +45,10 @@ function connect(){
                else if(id==="4"){
                    parseStartCards(msg.card4)
                }
-               console.log(cards)
                addCards()
                if(msg.currentPlayer===id){
                    $("#hand :input").attr("disabled",false);
-                   $("draw").attr("disabled",false);
+                   document.getElementById("draw").disabled = false;
                }
                document.getElementById("draw").style.visibility = "visible";
                direction = msg.direction;
@@ -65,58 +64,74 @@ function connect(){
                }
            }
            else if(msg.content==="ChangeSuit"){
-               let c = $(".card");
-               c.setAttribute("src","/cards/"+msg.suit+".jpg")
-               c.setAttribute("id",msg.suit)
-               if(msg.turn === "id"){
+               let ca = "/cards/"+msg.suit+".jpg"
+               $(".topCard").attr({
+                   src: ca,
+                   id: msg.suit
+               });
+
+               if(msg.turn === id){
                    $("#hand :input").attr("disabled",false);
-                   $("draw").attr("disabled",false);
+                   $("#draw").attr("disabled",false);
                }
            }
            else if(msg.content === "Played"){
                if(msg.id===id){
                    parseStartCards(msg.card)
-                   $("#hand").innerHTML = ''
+                   $("#hand").html("")
                    addCards()
                    $("#hand :input").attr("disabled",true);
-                   $("draw").attr("disabled",true);
+                   $("#draw").attr("disabled",true);
                }
                if(msg.turn===id){
-                   $("#hand :input").attr("disabled",true);
-                   $("draw").attr("disabled",true);
+                   $("#hand :input").attr("disabled",false);
+                   $("#draw").attr("disabled",false);
+                   console.log("turn")
                }
+               let c = "/cards/"+msg.topCard+".svg"
+               $(".topCard").attr({
+                   src: c,
+                   id: msg.topCard
+               });
            }
-          /* if(msg.length ===2){
-               if(id === "0"){
-                   id = msg[1]
-                   let x = document.createElement("LABEL");
-                   let t = document.createTextNode("Player: "+id);
-                   x.appendChild(t);
-                   document.getElementById("nav").appendChild(x);
-               }
-               if(msg[1] === "4" && id ==="1"){
-                   document.getElementById("startBtn").style.visibility="visible";
-               }
-               console.log("id: "+id)
-           }
-           else{
-               if(msg[0]==="Start"){
-                   let topCard = document.createElement("IMG");
-                   topCard.setAttribute("src","/cards/"+msg[2]+".svg")
-                   topCard.setAttribute("class","card")
-                   document.getElementById("topCardCol").appendChild(topCard)
-                   parseScore(msg);
-                   for(let j=0;j<score.length;j++){
-                       let s = document.createElement("LI");
-                       s.setAttribute("id","p"+(j+1))
-                       s.innerHTML = "Player "+(j+1)+": "+score[j];
-                       document.getElementById("scoreList").appendChild(s)
-                   }
-                   parseStartCards(msg);
+           else if(msg.content ==="8Played"){
+               if(msg.id===id){
+                   parseStartCards(msg.card)
+                   $("#hand").html("")
                    addCards()
-                   document.getElementById("draw").style.visibility = "visible";
+                   $("#hand :input").attr("disabled",true);
+                   $("#draw").attr("disabled",true);
+                   document.getElementById("spade").style.visibility="visible";
+                   document.getElementById("heart").style.visibility="visible";
+                   document.getElementById("club").style.visibility="visible";
+                   document.getElementById("diamond").style.visibility="visible";
                }
-           }*/
+               let c = "/cards/"+msg.topCard+".svg"
+               $(".topCard").attr({
+                   src: c,
+                   id: msg.topCard
+               });
+           }
+           else if(msg.content==="APlayed"){
+               if(msg.id===id){
+                   parseStartCards(msg.card)
+                   $("#hand").html("")
+                   addCards()
+                   $("#hand :input").attr("disabled",true);
+                   $("#draw").attr("disabled",true);
+               }
+               if(msg.turn===id){
+                   $("#hand :input").attr("disabled",false);
+                   $("#draw").attr("disabled",false);
+               }
+
+               let c = "/cards/"+msg.topCard+".svg"
+               $(".topCard").attr({
+                   src: c,
+                   id: msg.topCard
+               });
+               $("#direction").html(msg.direction);
+           }
        })
     });
 }
@@ -205,8 +220,8 @@ $(function(){
     $("#usernameBtn").click(function(){sendName();});
     $("#startBtn").click(function (){startGame();});
     $("#draw").click(function (){drawCard()})
-    $("spade").click(function (){changeSuit("S")})
-    $("heart").click(function (){changeSuit("H")})
-    $("club").click(function (){changeSuit("C")})
-    $("diamond").click(function (){changeSuit("D")})
+    $("#spade").click(function (){changeSuit("S")})
+    $("#heart").click(function (){changeSuit("H")})
+    $("#club").click(function (){changeSuit("C")})
+    $("#diamond").click(function (){changeSuit("D")})
 })
