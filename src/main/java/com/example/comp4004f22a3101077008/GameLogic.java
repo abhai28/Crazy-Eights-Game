@@ -1,9 +1,12 @@
 package com.example.comp4004f22a3101077008;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
+@Component
 public class GameLogic{
+
     public Card startGame(ArrayList<Card> cards,ArrayList<Player> players){
         for(Player p: players){
             p.cards.clear();
@@ -145,7 +148,7 @@ public class GameLogic{
             else{
                 int score = 0;
                 for(Card c : p.cards){
-                    if(c.getRank().equals("Q")||c.getRank().equals("K")||c.getRank().equals("J")||c.getRank().equals("10")){
+                    if(c.getRank().equals("Q")||c.getRank().equals("K")||c.getRank().equals("J")||c.getRank().equals("T")){
                         score += 10;
                     }
                     else if(c.getRank().equals("8")){

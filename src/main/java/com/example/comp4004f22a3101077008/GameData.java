@@ -14,4 +14,6 @@ public interface GameData {
     public void setDirection(String dir);
     public void setCurrentPlayer(int id);
     public int getCurrentPlayer();
+    public int getNextRound();
+    public void setNextRound(int r);
 }

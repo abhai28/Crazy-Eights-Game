@@ -1,8 +1,10 @@
 package com.example.comp4004f22a3101077008;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
+@Component
 public class NonRiggedData implements GameData{
     ArrayList<Player> players;
     ArrayList<Card> cards;
@@ -10,6 +12,7 @@ public class NonRiggedData implements GameData{
 
     String direction;
 
+    int nextRound;
     int currentPlayer;
     public NonRiggedData(){
         players = new ArrayList<>();
@@ -17,6 +20,7 @@ public class NonRiggedData implements GameData{
         topCard = new Card();
         this.direction = "left";
         this.currentPlayer = 1;
+        nextRound = 1;
     }
 
     @Override
@@ -70,5 +74,7 @@ public class NonRiggedData implements GameData{
     public int getCurrentPlayer(){
         return this.currentPlayer;
     }
+    public int getNextRound(){return this.nextRound;}
+    public void setNextRound(int r){this.nextRound=r;}
 
 }
