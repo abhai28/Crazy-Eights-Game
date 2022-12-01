@@ -6,25 +6,29 @@ public class PlayMessage {
     private String card;
     private String turn;
     private String direction;
+    private String topCard;
     public PlayMessage() {
     }
-    public PlayMessage(String content, String id, String card){
+    public PlayMessage(String content, String id, String card, String topCard){
         this.content = content;
         this.id = id;
         this.card = card;
+        this.topCard = topCard;
     }
-    public PlayMessage(String content, String id, String card, String turn,String direction) {
+    public PlayMessage(String content, String id, String card, String turn,String direction, String topCard) {
         this.content = content;
         this.id = id;
         this.card = card;
         this.turn = turn;
         this.direction = direction;
+        this.topCard = topCard;
     }
-    public PlayMessage(String content, String id, String card, String turn){
+    public PlayMessage(String content, String id, String card, String turn, String topCard){
         this.content = content;
         this.id = id;
         this.card = card;
         this.turn = turn;
+        this.topCard = topCard;
     }
 
     public String getContent() {
@@ -34,4 +38,5 @@ public class PlayMessage {
     public String getCard(){return card;}
     public String getTurn(){return turn;}
     public String getDirection(){return direction;}
+    public String getTopCard(){return topCard;}
 }
