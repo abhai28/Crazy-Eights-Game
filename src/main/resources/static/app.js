@@ -29,10 +29,15 @@ function connect(){
                topCard.setAttribute("class","topCard")
                topCard.setAttribute("id",msg.topCard)
                document.getElementById("topCardCol").appendChild(topCard)
+               $("#scoreList").html('');
+               let s = document.createElement("LI");
+               s.innerHTML = "Score:";
+               document.getElementById("scoreList").appendChild(s)
                addScore("1",msg.score1)
                addScore("2",msg.score2)
                addScore("3",msg.score3)
                addScore("4",msg.score4)
+
                if(id==="1"){
                    parseStartCards(msg.card1)
                }
@@ -131,6 +136,42 @@ function connect(){
                    id: msg.topCard
                });
                $("#direction").html(msg.direction);
+           }
+           else if(msg.content==="Round Over"){
+               $("#hand").html('');
+               $("#topCardCol").html('');
+               $("#scoreList").html('');
+               $("#draw").css("visibility","hidden")
+               $("#direction").remove();
+               let s = document.createElement("LI");
+               s.innerHTML = "Score:";
+               document.getElementById("scoreList").appendChild(s)
+               addScore("1",msg.score1)
+               addScore("2",msg.score2)
+               addScore("3",msg.score3)
+               addScore("4",msg.score4)
+               if(msg.nextRound===id){
+                   $("#startBtn").css("visibility","visible")
+               }
+           }
+           else if(msg.content==="Game Over"){
+               $("#hand").html('');
+               $("#topCardCol").html('');
+               $("#scoreList").html('');
+               $("#draw").css("visibility","hidden")
+               $("#direction").remove();
+               let s = document.createElement("LI");
+               s.innerHTML = "Score:";
+               document.getElementById("scoreList").appendChild(s)
+               addScore("1",msg.score1)
+               addScore("2",msg.score2)
+               addScore("3",msg.score3)
+               addScore("4",msg.score4)
+               let winTag = document.createElement("h1");
+               let textNode = document.createTextNode("WINNER IS PLAYER"+msg.winner);
+               winTag.appendChild(textNode);
+               winTag.setAttribute("class","display-1");
+               document.getElementById("hand").appendChild(winTag)
            }
        })
     });
