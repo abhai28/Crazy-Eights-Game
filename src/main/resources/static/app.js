@@ -27,6 +27,7 @@ function connect(){
                let topCard = document.createElement("IMG");
                topCard.setAttribute("src","/cards/"+msg.topCard+".svg")
                topCard.setAttribute("class","card")
+               topCard.setAttribute("id",msg.topCard)
                document.getElementById("topCardCol").appendChild(topCard)
                addScore("1",msg.score1)
                addScore("2",msg.score2)
@@ -61,6 +62,28 @@ function connect(){
            else if(msg.content ==="draw"){
                if(msg.id===id){
                    addCard(msg.card);
+               }
+           }
+           else if(msg.content==="ChangeSuit"){
+               let c = $(".card");
+               c.setAttribute("src","/cards/"+msg.suit+".jpg")
+               c.setAttribute("id",msg.suit)
+               if(msg.turn === "id"){
+                   $("#hand :input").attr("disabled",false);
+                   $("draw").attr("disabled",false);
+               }
+           }
+           else if(msg.content === "Played"){
+               if(msg.id===id){
+                   parseStartCards(msg.card)
+                   $("#hand").innerHTML = ''
+                   addCards()
+                   $("#hand :input").attr("disabled",true);
+                   $("draw").attr("disabled",true);
+               }
+               if(msg.turn===id){
+                   $("#hand :input").attr("disabled",true);
+                   $("draw").attr("disabled",true);
                }
            }
           /* if(msg.length ===2){
@@ -170,8 +193,20 @@ function drawCard(){
 
 window.onload = connect();
 
+function changeSuit(suit) {
+    document.getElementById("spade").style.visibility="hidden"
+    document.getElementById("heart").style.visibility="hidden"
+    document.getElementById("club").style.visibility="hidden"
+    document.getElementById("diamond").style.visibility="hidden"
+    stompClient.send("/app/changeSuit",{},JSON.stringify({'name':suit}))
+}
+
 $(function(){
     $("#usernameBtn").click(function(){sendName();});
     $("#startBtn").click(function (){startGame();});
     $("#draw").click(function (){drawCard()})
+    $("spade").click(function (){changeSuit("S")})
+    $("heart").click(function (){changeSuit("H")})
+    $("club").click(function (){changeSuit("C")})
+    $("diamond").click(function (){changeSuit("D")})
 })

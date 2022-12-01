@@ -61,6 +61,7 @@ public class GameController {
                 for(Card c : gd.getPlayers().get(id-1).cards){
                     card.append(" ").append(c.getRank()).append(c.getSuit());
                 }
+                // add game over function
                 return new PlayMessage("8Played",String.valueOf(id),card.toString());
             }
             case "APlayed"->{
@@ -107,6 +108,14 @@ public class GameController {
             game.calculateScore(gd.getPlayers());
             return new DrawMessage("Game Over","1",String.valueOf(gd.getPlayers().get(0).getScore()),"2",String.valueOf(gd.getPlayers().get(1).getScore()),"3",String.valueOf(gd.getPlayers().get(2).getScore()),"4",String.valueOf(gd.getPlayers().get(3).getScore()));
         }
+    }
+
+    @MessageMapping("/changeSuit")
+    @SendTo("/topic/message")
+    public ChangeSuitMessage changeSuit(ConnectionMessage message) throws Exception{
+        Card c = new Card(message.getMessage(),"");
+        gd.setTopCard(c);
+        return new ChangeSuitMessage("ChangeSuit",gd.getTopCard().getSuit(),String.valueOf(gd.getCurrentPlayer()));
     }
 
     public void setNextTurn() {
