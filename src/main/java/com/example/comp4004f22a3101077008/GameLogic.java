@@ -11,8 +11,8 @@ public class GameLogic{
         for(Player p: players){
             p.cards.clear();
         }
-        populateDeck(cards);
-        shuffleDeck(cards);
+       // populateDeck(cards);
+        //shuffleDeck(cards);
         Card topCard = cards.remove(0);
         while(topCard.getRank().equals("8")){
             Card tmp = topCard;

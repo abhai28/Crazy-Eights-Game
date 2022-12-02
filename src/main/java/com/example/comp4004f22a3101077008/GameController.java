@@ -21,7 +21,8 @@ public class GameController {
     public Message connect(ConnectionMessage message) throws Exception {
         numPlayers++;
         if(numPlayers==1){
-
+            game.populateDeck(gd.getCards());
+            game.shuffleDeck(gd.getCards());
         }
         if(numPlayers>4){
             return new Message("game started","");
