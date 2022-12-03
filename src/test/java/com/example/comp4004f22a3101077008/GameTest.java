@@ -181,6 +181,9 @@ public class GameTest {
         }
         game.populateDeck(gd.getCards());
         game.shuffleDeck(gd.getCards());
+        for(int i=0;i<4;i++){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),i);
+        }
         assertEquals(31,gd.getCards().size());
         for(Player p :gd.getPlayers()){
             assertEquals(5,p.handSize());
