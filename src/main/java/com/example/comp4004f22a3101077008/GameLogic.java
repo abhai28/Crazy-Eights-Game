@@ -22,6 +22,16 @@ public class GameLogic{
         dealCards(cards,players);
         return topCard;
     }
+
+    public Card startSetTopCard(ArrayList<Card> cards){
+        Card topCard = cards.remove(0);
+        while(topCard.getRank().equals("8")){
+            Card tmp = topCard;
+            cards.add(tmp);
+            topCard = cards.remove(0);
+        }
+        return topCard;
+    }
     public void populateDeck(ArrayList<Card> cards) {
         String [] suit = {"S","C","D","H"};
         String [] rank = {"A","2","3","4","5","6","7","8","9","T","J","Q","K"};
