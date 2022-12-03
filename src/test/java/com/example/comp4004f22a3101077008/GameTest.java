@@ -172,4 +172,18 @@ public class GameTest {
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         assertEquals("4",gd.getTopCard().getRank());
     }
+
+    @Test
+    void testStartDealCards(){
+        for(int i=0;i<4;i++){
+            Player p = new Player(i+1);
+            gd.addPlayer(p);
+        }
+        game.populateDeck(gd.getCards());
+        game.shuffleDeck(gd.getCards());
+        assertEquals(31,gd.getCards().size());
+        for(Player p :gd.getPlayers()){
+            assertEquals(5,p.handSize());
+        }
+    }
 }
