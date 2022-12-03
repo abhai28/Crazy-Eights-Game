@@ -184,7 +184,7 @@ public class GameTest {
         for(int i=0;i<4;i++){
             game.startDealCards(gd.getCards(),gd.getPlayers(),i);
         }
-        assertEquals(31,gd.getCards().size());
+        assertEquals(32,gd.getCards().size());
         for(Player p :gd.getPlayers()){
             assertEquals(5,p.handSize());
         }

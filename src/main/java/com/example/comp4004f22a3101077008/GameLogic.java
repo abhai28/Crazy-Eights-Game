@@ -11,8 +11,6 @@ public class GameLogic{
         for(Player p: players){
             p.cards.clear();
         }
-       // populateDeck(cards);
-        //shuffleDeck(cards);
         Card topCard = cards.remove(0);
         while(topCard.getRank().equals("8")){
             Card tmp = topCard;
@@ -23,6 +21,12 @@ public class GameLogic{
         return topCard;
     }
 
+    public void startDealCards(ArrayList<Card> cards, ArrayList<Player> players, int id){
+        players.get(id).cards.clear();
+        for(int i=0;i<5;i++){
+            players.get(id).addCard(cards.remove(0));
+        }
+    }
     public Card startSetTopCard(ArrayList<Card> cards){
         Card topCard = cards.remove(0);
         while(topCard.getRank().equals("8")){
