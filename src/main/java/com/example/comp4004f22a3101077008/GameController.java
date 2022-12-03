@@ -23,6 +23,7 @@ public class GameController {
         if(numPlayers==1){
             game.populateDeck(gd.getCards());
             game.shuffleDeck(gd.getCards());
+            gd.setTopCard(game.startSetTopCard(gd.getCards()));
         }
         if(numPlayers>4){
             return new Message("game started","");
