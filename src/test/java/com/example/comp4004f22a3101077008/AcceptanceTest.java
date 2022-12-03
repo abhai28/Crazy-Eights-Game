@@ -34,7 +34,8 @@ import java.util.Objects;
 public class AcceptanceTest {
     @Autowired
     GameData gd;
-
+    @Autowired
+    GameLogic game;
     @LocalServerPort
     int port;
 
@@ -61,9 +62,7 @@ public class AcceptanceTest {
     @AfterEach
     public void close(){
         for(WebDriver d : drivers){
-            /*if(d!=null){
-                d.close();
-            }*/
+
             d.quit();
         }
     }
@@ -162,5 +161,9 @@ public class AcceptanceTest {
         rigCard.add(p4c5);
 
         gd.setCards(rigCard);
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
     }
 }

@@ -32,6 +32,7 @@ public class GameController {
             Thread.sleep(500);
             Player p = new Player(numPlayers);
             gd.addPlayer(p);
+            game.startDealCards(gd.getCards(),gd.getPlayers(),numPlayers-1);
             return new Message("id",String.valueOf(p.getID()));
         }
     }
@@ -39,7 +40,6 @@ public class GameController {
     @MessageMapping("/start")
     @SendTo("/topic/message")
     public StartMessage start(ConnectionMessage message) throws Exception{
-        gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
         ArrayList<String> cards = new ArrayList<>();
         for(int i=0;i<numPlayers;i++){
             StringBuilder car = new StringBuilder();

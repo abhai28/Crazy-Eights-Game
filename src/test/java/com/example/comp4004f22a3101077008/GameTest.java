@@ -49,24 +49,6 @@ public class GameTest {
         assertTrue(game.drawCard(gd.getCards(),gd.getPlayers().get(0)));
         assertEquals(1,gd.getPlayers().get(0).handSize());
     }
-    @Test
-    void testStartGame(){
-        for(int i=0;i<4;i++){
-            Player p = new Player(i+1);
-            gd.addPlayer(p);
-        }
-        assertEquals("",gd.getTopCard().getRank());
-        assertEquals("",gd.getTopCard().getSuit());
-        game.populateDeck(gd.getCards());
-        game.shuffleDeck(gd.getCards());
-        gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
-        assertEquals(31,gd.getCards().size());
-        for(Player p :gd.getPlayers()){
-            assertEquals(5,p.handSize());
-        }
-        assertNotEquals("8",gd.getTopCard().getRank());
-        assertNotNull(gd.getTopCard());
-    }
 
     @Test
     void testCheckQueen(){
@@ -93,7 +75,10 @@ public class GameTest {
         }
         game.populateDeck(gd.getCards());
         game.shuffleDeck(gd.getCards());
-        gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
         Card tc = new Card("S","Q");
         gd.setTopCard(tc);
         Card c = new Card("D","Q");
