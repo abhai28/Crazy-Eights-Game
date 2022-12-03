@@ -1,5 +1,7 @@
 package com.example.comp4004f22a3101077008;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -7,16 +9,19 @@ public class Player {
     private String username;
     ArrayList<Card> cards;
     private int score;
+    private int numDraws;
     public Player(int id){
         this.playerID = id;
         this.cards = new ArrayList<>();
         this.score = 0;
+        this.numDraws = 0;
     }
     public Player(int id,String un){
         this.playerID = id;
         this.cards = new ArrayList<>();
         this.score = 0;
         this.username = un;
+        this.numDraws = 0;
     }
     public int getID(){
         return this.playerID;
@@ -56,5 +61,13 @@ public class Player {
             }
         }
         return i;
+    }
+
+    public int getNumDraws() {
+        return numDraws;
+    }
+
+    public void setNumDraws(int numDraws) {
+        this.numDraws = numDraws;
     }
 }

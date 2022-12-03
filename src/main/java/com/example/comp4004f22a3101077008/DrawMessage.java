@@ -15,6 +15,7 @@ public class DrawMessage {
     String score4;
     String nextRound;
     String winner;
+    String turn;
     public DrawMessage() {
     }
 
@@ -23,7 +24,12 @@ public class DrawMessage {
         this.id = id;
         this.card = card;
     }
-
+    public DrawMessage(String content, String id, String card, String turn){
+        this.content = content;
+        this.id = id;
+        this.card = card;
+        this.turn = turn;
+    }
     public DrawMessage(String content,String id1,String score1,String id2,String score2,String id3, String score3,String id4,String score4, String nextRound) {
         this.content = content;
         this.id1 = id1;
@@ -61,4 +67,5 @@ public class DrawMessage {
     public String getScore4(){return this.score4;}
     public String getNextRound(){return this.nextRound;}
     public String getWinner(){return this.winner;}
+    public String getTurn(){return this.turn;}
 }

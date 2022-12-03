@@ -13,6 +13,7 @@ public class PlayMessage {
     private String score4;
     private String winner;
     private String nextRound;
+    private String nextCard;
     public PlayMessage() {
     }
     public PlayMessage(String content, String id, String card, String topCard){
@@ -29,6 +30,14 @@ public class PlayMessage {
             this.score3 = turn;
             this.score4 = direction;
             this.winner = topCard;
+        }
+        else if(content.equals("2 Played Draw")){
+            this.content = content;
+            this.id = id;
+            this.card = card;
+            this.turn = turn;
+            this.nextCard = direction;
+            this.topCard = topCard;
         }
         else if(content.equals("Round Over")){
             this.content = content;
@@ -86,5 +95,9 @@ public class PlayMessage {
 
     public String getNextRound() {
         return nextRound;
+    }
+
+    public String getNextCard() {
+        return nextCard;
     }
 }

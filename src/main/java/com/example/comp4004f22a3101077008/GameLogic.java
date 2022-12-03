@@ -171,4 +171,11 @@ public class GameLogic{
             }
         }
     }
+
+    public void incrementDraw(ArrayList<Player> players, int id){
+        players.get(id-1).setNumDraws(players.get(id-1).getNumDraws()+1);
+    }
+    public void resetDraw(ArrayList<Player> players, int id){
+        players.get(id-1).setNumDraws(0);
+    }
 }

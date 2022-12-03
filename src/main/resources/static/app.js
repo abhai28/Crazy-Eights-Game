@@ -174,6 +174,44 @@ function connect(){
                winTag.setAttribute("class","display-1");
                document.getElementById("hand").appendChild(winTag)
            }
+           else if(msg.content==="Playable"){
+               if(msg.id === id){
+                   $("#draw").attr("disabled",true);
+                   addCard(msg.card);
+               }
+           }
+           else if(msg.content==="Not Playable"){
+               if(msg.id===id){
+                   addCard(msg.card);
+                   $("#hand :input").attr("disabled",true);
+                   $("#draw").attr("disabled",true);
+               }
+               if(msg.turn===id){
+                   $("#hand :input").attr("disabled",false);
+                   $("#draw").attr("disabled",false);
+               }
+           }
+           else if(msg.content==="2 Played Draw"){
+               if(msg.id===id){
+                   parseStartCards(msg.card)
+                   $("#hand").html("")
+                   addCards()
+                   $("#hand :input").attr("disabled",true);
+                   $("#draw").attr("disabled",true);
+               }
+               if(msg.turn===id){
+                   parseStartCards(msg.nextCard)
+                   $("#hand").html("")
+                   addCards();
+                   $("#hand :input").attr("disabled",false);
+                   $("#draw").attr("disabled",false);
+               }
+               let c = "/cards/"+msg.topCard+".svg"
+               $(".topCard").attr({
+                   src: c,
+                   id: msg.topCard
+               });
+           }
        })
     });
 }
