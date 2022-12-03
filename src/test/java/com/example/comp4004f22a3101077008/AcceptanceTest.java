@@ -61,9 +61,10 @@ public class AcceptanceTest {
     @AfterEach
     public void close(){
         for(WebDriver d : drivers){
-            if(d!=null){
+            /*if(d!=null){
                 d.close();
-            }
+            }*/
+            d.quit();
         }
     }
     @Test

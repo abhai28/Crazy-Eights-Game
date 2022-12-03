@@ -57,6 +57,8 @@ public class GameTest {
         }
         assertEquals("",gd.getTopCard().getRank());
         assertEquals("",gd.getTopCard().getSuit());
+        game.populateDeck(gd.getCards());
+        game.shuffleDeck(gd.getCards());
         gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
         assertEquals(31,gd.getCards().size());
         for(Player p :gd.getPlayers()){
@@ -89,6 +91,8 @@ public class GameTest {
             Player p = new Player(i+1);
             gd.getPlayers().add(p);
         }
+        game.populateDeck(gd.getCards());
+        game.shuffleDeck(gd.getCards());
         gd.setTopCard(game.startGame(gd.getCards(),gd.getPlayers()));
         Card tc = new Card("S","Q");
         gd.setTopCard(tc);
@@ -142,7 +146,7 @@ public class GameTest {
         Card c1 = new Card("D","Q");
         Card c2 = new Card("D","5");
         Card c3 = new Card("D","8");
-        Card c4 = new Card("D","10");
+        Card c4 = new Card("D","T");
         Card c5 = new Card("D","2");
 
         for(int i=1;i<gd.getPlayers().size();i++){
