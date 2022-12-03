@@ -162,4 +162,14 @@ public class GameTest {
             assertEquals(77,gd.getPlayers().get(i).getScore());
         }
     }
+
+    @Test
+    void testStartSetTopCard(){
+        ArrayList<Card> cs = new ArrayList<>();
+        Card t = new Card("S","4");
+        cs.add(t);
+        gd.setCards(cs);
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        assertEquals("4",gd.getTopCard().getRank());
+    }
 }
