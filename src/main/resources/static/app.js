@@ -16,6 +16,7 @@ function connect(){
                    id = msg.id;
                    let x = document.createElement("LABEL");
                    let t = document.createTextNode("Player: "+id);
+                   x.setAttribute("id","playerID")
                    x.appendChild(t);
                    document.getElementById("nav").appendChild(x);
                }
