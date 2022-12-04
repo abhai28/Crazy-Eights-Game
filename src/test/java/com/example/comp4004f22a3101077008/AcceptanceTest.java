@@ -209,7 +209,8 @@ public class AcceptanceTest {
         assertEquals("QC",topID);
 
         assertFalse(d2.findElement(By.id("draw")).isEnabled());
-        assertTrue(d1.findElement(By.id("draw")).isEnabled());
+        assertFalse(d1.findElement(By.id("draw")).isEnabled());
+        assertTrue(d3.findElement(By.id("draw")).isEnabled());
     }
 
     @Test
@@ -380,111 +381,30 @@ public class AcceptanceTest {
     }
 
     public void rigTestRow44(){
-        Card top = new Card("C","7");
-        Card p1c1 = new Card("C","3");
-        Card p1c2 = new Card("C","Q");
-        Card p1c3 = new Card("H","A");
-        Card p1c4 = new Card("D","9");
-        Card p1c5 = new Card("S","J");
-        Card p2c1 = new Card("C","4");
-        Card p2c2 = new Card("H","9");
-        Card p2c3 = new Card("H","7");
-        Card p2c4 = new Card("D","9");
-        Card p2c5 = new Card("S","J");
-        Card p3c1 = new Card("C","3");
-        Card p3c2 = new Card("H","9");
-        Card p3c3 = new Card("H","A");
-        Card p3c4 = new Card("D","9");
-        Card p3c5 = new Card("S","J");
-        Card p4c1 = new Card("C","3");
-        Card p4c2 = new Card("H","7");
-        Card p4c3 = new Card("H","A");
-        Card p4c4 = new Card("D","9");
-        Card p4c5 = new Card("S","J");
-        ArrayList<Card> rigCard= new ArrayList<>();
-        rigCard.add(top);
-        rigCard.add(p1c1);
-        rigCard.add(p1c2);
-        rigCard.add(p1c3);
-        rigCard.add(p1c4);
-        rigCard.add(p1c5);
-
-        rigCard.add(p2c1);
-        rigCard.add(p2c2);
-        rigCard.add(p2c3);
-        rigCard.add(p2c4);
-        rigCard.add(p2c5);
-
-        rigCard.add(p3c1);
-        rigCard.add(p3c2);
-        rigCard.add(p3c3);
-        rigCard.add(p3c4);
-        rigCard.add(p3c5);
-
-        rigCard.add(p4c1);
-        rigCard.add(p4c2);
-        rigCard.add(p4c3);
-        rigCard.add(p4c4);
-        rigCard.add(p4c5);
-
-        gd.setCards(rigCard);
+        String rigC = "7C 5C QC AH 9D 6D 6C 4H 7H 9D JS 4C 9H 2H TD JH KS 3C 4S 6S 5S";
+        gd.setCards(stringToArray(rigC));
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         for(Player p : gd.getPlayers()){
             game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
         }
     }
     public void rigTestRow45(){
-        Card top = new Card("C","7");
-        Card p1c1 = new Card("C","5");
-        Card p1c2 = new Card("C","Q");
-        Card p1c3 = new Card("H","A");
-        Card p1c4 = new Card("D","9");
-        Card p1c5 = new Card("S","6");
-        Card p2c1 = new Card("C","4");
-        Card p2c2 = new Card("H","9");
-        Card p2c3 = new Card("H","7");
-        Card p2c4 = new Card("D","9");
-        Card p2c5 = new Card("S","J");
-        Card p3c1 = new Card("C","4");
-        Card p3c2 = new Card("H","9");
-        Card p3c3 = new Card("H","A");
-        Card p3c4 = new Card("D","9");
-        Card p3c5 = new Card("S","J");
-        Card p4c1 = new Card("C","3");
-        Card p4c2 = new Card("H","7");
-        Card p4c3 = new Card("H","A");
-        Card p4c4 = new Card("D","9");
-        Card p4c5 = new Card("S","J");
-        ArrayList<Card> rigCard= new ArrayList<>();
-        rigCard.add(top);
-        rigCard.add(p1c1);
-        rigCard.add(p1c2);
-        rigCard.add(p1c3);
-        rigCard.add(p1c4);
-        rigCard.add(p1c5);
-
-        rigCard.add(p2c1);
-        rigCard.add(p2c2);
-        rigCard.add(p2c3);
-        rigCard.add(p2c4);
-        rigCard.add(p2c5);
-
-        rigCard.add(p3c1);
-        rigCard.add(p3c2);
-        rigCard.add(p3c3);
-        rigCard.add(p3c4);
-        rigCard.add(p3c5);
-
-        rigCard.add(p4c1);
-        rigCard.add(p4c2);
-        rigCard.add(p4c3);
-        rigCard.add(p4c4);
-        rigCard.add(p4c5);
-
-        gd.setCards(rigCard);
+        String rigC = "7C 5C QC AH 9D 6D 6C 4H 7H 9D JS 4C 9H 2H TD JH KS 3C 4S 6S 5S";
+        gd.setCards(stringToArray(rigC));
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         for(Player p : gd.getPlayers()){
             game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
         }
+    }
+
+    public ArrayList<Card> stringToArray(String cards){
+        ArrayList<Card> rig = new ArrayList<>();
+        for(String car:cards.split(" ")){
+            String suit = car.split("")[1];
+            String rank = car.split("")[0];
+            Card tmpC = new Card(suit,rank);
+            rig.add(tmpC);
+        }
+        return rig;
     }
 }
