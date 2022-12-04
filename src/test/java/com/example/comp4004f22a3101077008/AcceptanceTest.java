@@ -59,6 +59,7 @@ public class AcceptanceTest {
         }
     }
     @Test
+    @DirtiesContext
     public void testRow41(){
         WebDriver d1 = drivers.get(0);
         WebDriver d2 = drivers.get(1);
@@ -105,6 +106,7 @@ public class AcceptanceTest {
     }
 
     @Test
+    @DirtiesContext
     public void testRow42(){
         WebDriver d1 = drivers.get(0);
         WebDriver d2 = drivers.get(1);
@@ -160,6 +162,54 @@ public class AcceptanceTest {
         d4.findElement(By.id("7H")).click();
         assertTrue(d3.findElement(By.id("draw")).isEnabled());
 
+    }
+
+    @Test
+    @DirtiesContext
+    public void testRow44(){
+        WebDriver d1 = drivers.get(0);
+        WebDriver d2 = drivers.get(1);
+        WebDriver d3 = drivers.get(2);
+        WebDriver d4 = drivers.get(3);
+        d1.get("http://localhost:"+port);
+        String text = d1.findElement(By.id("title")).getText();
+        assertEquals("Crazy Eights",text);
+        d1.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
+
+        d2.get("http://localhost:"+port);
+        d2.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
+
+        d3.get("http://localhost:"+port);
+        d3.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
+
+        d4.get("http://localhost:"+port);
+        d4.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
+
+        //rig game
+        rigTestRow44();
+
+        assertTrue(d1.findElement(By.id("startBtn")).isDisplayed());
+        d1.findElement(By.id("startBtn")).click();
+        text = d1.findElement(By.id("direction")).getText();
+        assertEquals("left",text);
+
+        d1.findElement(By.id("QC")).click();
+        String topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+
+        topID = d2.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+        topID = d3.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+        topID = d4.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+
+        assertFalse(d2.findElement(By.id("draw")).isEnabled());
+        assertTrue(d3.findElement(By.id("draw")).isEnabled());
     }
 
     public void rigTestRow41(){
