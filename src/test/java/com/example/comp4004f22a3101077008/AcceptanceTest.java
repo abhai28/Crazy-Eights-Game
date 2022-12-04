@@ -39,8 +39,8 @@ public class AcceptanceTest {
         WebDriverManager.chromedriver().setup();
         chromeOptions = new ChromeOptions();
         drivers = new ArrayList<>();
-        chromeOptions.setImplicitWaitTimeout(Duration.ofSeconds(10));
-        chromeOptions.setPageLoadTimeout(Duration.ofSeconds(10));
+        chromeOptions.setImplicitWaitTimeout(Duration.ofSeconds(20));
+        chromeOptions.setPageLoadTimeout(Duration.ofSeconds(20));
         WebDriver driver1 = new ChromeDriver(chromeOptions);
         drivers.add(driver1);
         WebDriver driver2 = new ChromeDriver(chromeOptions);
@@ -102,6 +102,10 @@ public class AcceptanceTest {
         topID = d4.findElement(By.className("topCard")).getAttribute("id");
         assertEquals("3C",topID);
 
+        assertEquals("Turn: 2",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 2",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 2",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 2",d4.findElement(By.id("turnID")).getText());
         assertTrue(d2.findElement(By.id("draw")).isEnabled());
     }
 
@@ -158,8 +162,16 @@ public class AcceptanceTest {
         direction = d3.findElement(By.id("direction")).getText();
         assertEquals("right",direction);
 
+        assertEquals("Turn: 4",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 4",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 4",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 4",d4.findElement(By.id("turnID")).getText());
         assertTrue(d4.findElement(By.id("draw")).isEnabled());
         d4.findElement(By.id("7H")).click();
+        assertEquals("Turn: 3",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d4.findElement(By.id("turnID")).getText());
         assertTrue(d3.findElement(By.id("draw")).isEnabled());
 
     }
@@ -271,54 +283,8 @@ public class AcceptanceTest {
     }
 
     public void rigTestRow41(){
-        Card top = new Card("C","7");
-        Card p1c1 = new Card("C","3");
-        Card p1c2 = new Card("H","9");
-        Card p1c3 = new Card("H","A");
-        Card p1c4 = new Card("D","9");
-        Card p1c5 = new Card("S","J");
-        Card p2c1 = new Card("C","4");
-        Card p2c2 = new Card("H","9");
-        Card p2c3 = new Card("H","7");
-        Card p2c4 = new Card("D","9");
-        Card p2c5 = new Card("S","J");
-        Card p3c1 = new Card("C","3");
-        Card p3c2 = new Card("H","9");
-        Card p3c3 = new Card("H","A");
-        Card p3c4 = new Card("D","9");
-        Card p3c5 = new Card("S","J");
-        Card p4c1 = new Card("C","3");
-        Card p4c2 = new Card("H","9");
-        Card p4c3 = new Card("H","7");
-        Card p4c4 = new Card("D","9");
-        Card p4c5 = new Card("S","J");
-        ArrayList<Card> rigCard= new ArrayList<>();
-        rigCard.add(top);
-        rigCard.add(p1c1);
-        rigCard.add(p1c2);
-        rigCard.add(p1c3);
-        rigCard.add(p1c4);
-        rigCard.add(p1c5);
-
-        rigCard.add(p2c1);
-        rigCard.add(p2c2);
-        rigCard.add(p2c3);
-        rigCard.add(p2c4);
-        rigCard.add(p2c5);
-
-        rigCard.add(p3c1);
-        rigCard.add(p3c2);
-        rigCard.add(p3c3);
-        rigCard.add(p3c4);
-        rigCard.add(p3c5);
-
-        rigCard.add(p4c1);
-        rigCard.add(p4c2);
-        rigCard.add(p4c3);
-        rigCard.add(p4c4);
-        rigCard.add(p4c5);
-
-        gd.setCards(rigCard);
+        String rigC = "7C AH 9H 3C 2C 5H 4C JS 9D TH KS TS TD 8C 9C 4S 7H AS TC 9S 2D";
+        gd.setCards(stringToArray(rigC));
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         for(Player p : gd.getPlayers()){
             game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
@@ -326,54 +292,8 @@ public class AcceptanceTest {
     }
 
     public void rigTestRow42(){
-        Card top = new Card("H","7");
-        Card p1c1 = new Card("C","3");
-        Card p1c2 = new Card("H","9");
-        Card p1c3 = new Card("H","A");
-        Card p1c4 = new Card("D","9");
-        Card p1c5 = new Card("S","J");
-        Card p2c1 = new Card("C","4");
-        Card p2c2 = new Card("H","9");
-        Card p2c3 = new Card("H","7");
-        Card p2c4 = new Card("D","9");
-        Card p2c5 = new Card("S","J");
-        Card p3c1 = new Card("C","3");
-        Card p3c2 = new Card("H","9");
-        Card p3c3 = new Card("H","A");
-        Card p3c4 = new Card("D","9");
-        Card p3c5 = new Card("S","J");
-        Card p4c1 = new Card("C","3");
-        Card p4c2 = new Card("H","7");
-        Card p4c3 = new Card("H","A");
-        Card p4c4 = new Card("D","9");
-        Card p4c5 = new Card("S","J");
-        ArrayList<Card> rigCard= new ArrayList<>();
-        rigCard.add(top);
-        rigCard.add(p1c1);
-        rigCard.add(p1c2);
-        rigCard.add(p1c3);
-        rigCard.add(p1c4);
-        rigCard.add(p1c5);
-
-        rigCard.add(p2c1);
-        rigCard.add(p2c2);
-        rigCard.add(p2c3);
-        rigCard.add(p2c4);
-        rigCard.add(p2c5);
-
-        rigCard.add(p3c1);
-        rigCard.add(p3c2);
-        rigCard.add(p3c3);
-        rigCard.add(p3c4);
-        rigCard.add(p3c5);
-
-        rigCard.add(p4c1);
-        rigCard.add(p4c2);
-        rigCard.add(p4c3);
-        rigCard.add(p4c4);
-        rigCard.add(p4c5);
-
-        gd.setCards(rigCard);
+        String rigC = "4H AH 9H 3C 2C 5H 4C JS 9D TH KS TS TD 8C 9C 4S 7H AS TC 9S 2D";
+        gd.setCards(stringToArray(rigC));
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         for(Player p : gd.getPlayers()){
             game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
@@ -396,7 +316,6 @@ public class AcceptanceTest {
             game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
         }
     }
-
     public ArrayList<Card> stringToArray(String cards){
         ArrayList<Card> rig = new ArrayList<>();
         for(String car:cards.split(" ")){
