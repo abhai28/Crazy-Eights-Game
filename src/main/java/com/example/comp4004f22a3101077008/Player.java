@@ -65,7 +65,9 @@ public class Player {
         }
         return i;
     }
-
+    public void setCards(ArrayList<Card> c){
+        this.cards = c;
+    }
     public int getNumDraws() {
         return numDraws;
     }
