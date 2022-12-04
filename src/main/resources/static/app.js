@@ -242,6 +242,22 @@ function connect(){
                    alert("Invalid Selection")
                }
            }
+           else if(msg.content==="2 Played 1"){
+               if(msg.id===id){
+                   parseStartCards(msg.card)
+                   $("#hand").html("")
+                   addCards()
+                   $("#hand :input").attr("disabled",true);
+                   $("#draw").attr("disabled",true);
+               }
+               if(msg.turn===id){
+                   parseStartCards(msg.nextCard)
+                   $("#hand").html("")
+                   addCards()
+                   $("#hand :input").attr("disabled",false);
+                   $("#draw").attr("disabled",false);
+               }
+           }
        })
     });
 }

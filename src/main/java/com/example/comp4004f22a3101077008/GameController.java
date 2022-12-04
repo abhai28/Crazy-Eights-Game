@@ -145,11 +145,26 @@ public class GameController {
                             if(gd.getCards().size()>=2){
                                 game.drawCard(gd.getCards(),gd.getPlayers().get(extraDrawID-1));
                                 game.drawCard(gd.getCards(),gd.getPlayers().get(extraDrawID-1));
+                                numCards = 0;
+                                String tmpS = gd.getTopCard().getSuit();
+                                String tmpR = gd.getTopCard().getRank();
+                                for(Card c : gd.getPlayers().get(gd.getCurrentPlayer()-1).cards){
+                                    if(tmpR.equals(c.getRank())||tmpS.equals(c.getSuit())){
+                                        tmpR = c.getRank();
+                                        tmpS = c.getSuit();
+                                        numCards++;
+                                    }
+                                }
                                 StringBuilder card2 = new StringBuilder();
                                 for(Card c : gd.getPlayers().get(extraDrawID-1).cards){
                                     card2.append(" ").append(c.getRank()).append(c.getSuit());
                                 }
-                                return new PlayMessage("2 Played Draw",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit(),String.valueOf(extraDrawID));
+                                if(numCards>=1){
+                                    return new PlayMessage("2 Played 1", String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
+                                }
+                                else{
+                                    return new PlayMessage("2 Played Draw",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit(),String.valueOf(extraDrawID));
+                                }
                             }
                             else{
                                 return getPlayMessage();

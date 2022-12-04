@@ -32,7 +32,7 @@ public class PlayMessage {
             this.score4 = direction;
             this.winner = topCard;
         }
-        else if(content.equals("2 Played Draw")){
+        else if(content.equals("2 Played 1")){
             this.content = content;
             this.id = id;
             this.card = card;
