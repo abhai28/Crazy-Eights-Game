@@ -220,6 +220,10 @@ public class AcceptanceTest {
         topID = d4.findElement(By.className("topCard")).getAttribute("id");
         assertEquals("QC",topID);
 
+        assertEquals("Turn: 3",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d4.findElement(By.id("turnID")).getText());
         assertFalse(d2.findElement(By.id("draw")).isEnabled());
         assertFalse(d1.findElement(By.id("draw")).isEnabled());
         assertTrue(d3.findElement(By.id("draw")).isEnabled());
@@ -279,7 +283,76 @@ public class AcceptanceTest {
         d4.findElement(By.id("3C")).click();
         topID = d1.findElement(By.className("topCard")).getAttribute("id");
         assertEquals("3C",topID);
+        assertEquals("Turn: 1",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 1",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 1",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 1",d4.findElement(By.id("turnID")).getText());
         assertTrue(d1.findElement(By.id("draw")).isEnabled());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testRow46(){
+        WebDriver d1 = drivers.get(0);
+        WebDriver d2 = drivers.get(1);
+        WebDriver d3 = drivers.get(2);
+        WebDriver d4 = drivers.get(3);
+        d1.get("http://localhost:"+port);
+        String text = d1.findElement(By.id("title")).getText();
+        assertEquals("Crazy Eights",text);
+        d1.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
+
+        d2.get("http://localhost:"+port);
+        d2.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
+
+        d3.get("http://localhost:"+port);
+        d3.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
+
+        d4.get("http://localhost:"+port);
+        d4.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
+
+        //rig game
+        rigTestRow46();
+
+        assertTrue(d1.findElement(By.id("startBtn")).isDisplayed());
+        d1.findElement(By.id("startBtn")).click();
+        text = d1.findElement(By.id("direction")).getText();
+        assertEquals("left",text);
+
+        d1.findElement(By.id("QH")).click();
+        String topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QH",topID);
+
+        d3.findElement(By.id("JH")).click();
+        topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("JH",topID);
+
+        d4.findElement(By.id("AH")).click();
+        topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("AH",topID);
+
+        assertEquals("Turn: 3",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 3",d4.findElement(By.id("turnID")).getText());
+
+        assertEquals("right",d1.findElement(By.id("direction")).getText());
+        assertEquals("right",d2.findElement(By.id("direction")).getText());
+        assertEquals("right",d3.findElement(By.id("direction")).getText());
+        assertEquals("right",d4.findElement(By.id("direction")).getText());
+
+        d3.findElement(By.id("7H")).click();
+        topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("7H",topID);
+
+        assertEquals("Turn: 2",d1.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 2",d2.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 2",d3.findElement(By.id("turnID")).getText());
+        assertEquals("Turn: 2",d4.findElement(By.id("turnID")).getText());
     }
 
     public void rigTestRow41(){
@@ -310,6 +383,15 @@ public class AcceptanceTest {
     }
     public void rigTestRow45(){
         String rigC = "7C 5C QC AH 9D 6D 6C 4H 7H 9D JS 4C 9H 2H TD JH KS 3C 4S 6S 5S";
+        gd.setCards(stringToArray(rigC));
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
+    }
+
+    public void rigTestRow46(){
+        String rigC = "QC 5C QH 8H 9D 6D 6C 4H 7H 9D JS 4C 9H 7H TD JH KS 3C 4S AH 5S";
         gd.setCards(stringToArray(rigC));
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         for(Player p : gd.getPlayers()){
