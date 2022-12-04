@@ -209,7 +209,64 @@ public class AcceptanceTest {
         assertEquals("QC",topID);
 
         assertFalse(d2.findElement(By.id("draw")).isEnabled());
+        assertTrue(d1.findElement(By.id("draw")).isEnabled());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testRow45(){
+        WebDriver d1 = drivers.get(0);
+        WebDriver d2 = drivers.get(1);
+        WebDriver d3 = drivers.get(2);
+        WebDriver d4 = drivers.get(3);
+        d1.get("http://localhost:"+port);
+        String text = d1.findElement(By.id("title")).getText();
+        assertEquals("Crazy Eights",text);
+        d1.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
+
+        d2.get("http://localhost:"+port);
+        d2.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
+
+        d3.get("http://localhost:"+port);
+        d3.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
+
+        d4.get("http://localhost:"+port);
+        d4.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
+
+        //rig game
+        rigTestRow45();
+
+        assertTrue(d1.findElement(By.id("startBtn")).isDisplayed());
+        d1.findElement(By.id("startBtn")).click();
+        text = d1.findElement(By.id("direction")).getText();
+        assertEquals("left",text);
+
+        d1.findElement(By.id("QC")).click();
+        String topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+
+        topID = d2.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+        topID = d3.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+        topID = d4.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("QC",topID);
+
+        assertFalse(d2.findElement(By.id("draw")).isEnabled());
         assertTrue(d3.findElement(By.id("draw")).isEnabled());
+
+        d3.findElement(By.id("4C")).click();
+        topID = d3.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("4C",topID);
+
+        d4.findElement(By.id("3C")).click();
+        topID = d1.findElement(By.className("topCard")).getAttribute("id");
+        assertEquals("3C",topID);
+        assertTrue(d1.findElement(By.id("draw")).isEnabled());
     }
 
     public void rigTestRow41(){
@@ -335,6 +392,60 @@ public class AcceptanceTest {
         Card p2c4 = new Card("D","9");
         Card p2c5 = new Card("S","J");
         Card p3c1 = new Card("C","3");
+        Card p3c2 = new Card("H","9");
+        Card p3c3 = new Card("H","A");
+        Card p3c4 = new Card("D","9");
+        Card p3c5 = new Card("S","J");
+        Card p4c1 = new Card("C","3");
+        Card p4c2 = new Card("H","7");
+        Card p4c3 = new Card("H","A");
+        Card p4c4 = new Card("D","9");
+        Card p4c5 = new Card("S","J");
+        ArrayList<Card> rigCard= new ArrayList<>();
+        rigCard.add(top);
+        rigCard.add(p1c1);
+        rigCard.add(p1c2);
+        rigCard.add(p1c3);
+        rigCard.add(p1c4);
+        rigCard.add(p1c5);
+
+        rigCard.add(p2c1);
+        rigCard.add(p2c2);
+        rigCard.add(p2c3);
+        rigCard.add(p2c4);
+        rigCard.add(p2c5);
+
+        rigCard.add(p3c1);
+        rigCard.add(p3c2);
+        rigCard.add(p3c3);
+        rigCard.add(p3c4);
+        rigCard.add(p3c5);
+
+        rigCard.add(p4c1);
+        rigCard.add(p4c2);
+        rigCard.add(p4c3);
+        rigCard.add(p4c4);
+        rigCard.add(p4c5);
+
+        gd.setCards(rigCard);
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
+    }
+    public void rigTestRow45(){
+        Card top = new Card("C","7");
+        Card p1c1 = new Card("C","5");
+        Card p1c2 = new Card("C","Q");
+        Card p1c3 = new Card("H","A");
+        Card p1c4 = new Card("D","9");
+        Card p1c5 = new Card("S","6");
+        Card p2c1 = new Card("C","4");
+        Card p2c2 = new Card("H","9");
+        Card p2c3 = new Card("H","7");
+        Card p2c4 = new Card("D","9");
+        Card p2c5 = new Card("S","J");
+        Card p3c1 = new Card("C","4");
         Card p3c2 = new Card("H","9");
         Card p3c3 = new Card("H","A");
         Card p3c4 = new Card("D","9");
