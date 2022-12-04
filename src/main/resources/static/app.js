@@ -237,6 +237,11 @@ function connect(){
                    id: msg.topCard
                });
            }
+           else if(msg.content==="NotPlayed"){
+               if(msg.id===id){
+                   alert("Invalid Selection")
+               }
+           }
        })
     });
 }
