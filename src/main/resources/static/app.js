@@ -63,6 +63,11 @@ function connect(){
                x.setAttribute("id","direction")
                x.appendChild(t);
                document.getElementById("nav").appendChild(x);
+               let m = document.createElement("LABEL");
+               let k = document.createTextNode("Turn: "+msg.currentPlayer);
+               m.setAttribute("id","turnID")
+               m.appendChild(k);
+               document.getElementById("nav").appendChild(m);
            }
            else if(msg.content ==="draw"){
                if(msg.id===id){
@@ -80,6 +85,7 @@ function connect(){
                    $("#hand :input").attr("disabled",false);
                    $("#draw").attr("disabled",false);
                }
+               $("#turnID").html("Turn: "+msg.turn)
            }
            else if(msg.content === "Played"){
                if(msg.id===id){
@@ -94,6 +100,7 @@ function connect(){
                    $("#draw").attr("disabled",false);
                    console.log("turn")
                }
+               $("#turnID").html("Turn: "+msg.turn)
                let c = "/cards/"+msg.topCard+".svg"
                $(".topCard").attr({
                    src: c,
@@ -136,6 +143,7 @@ function connect(){
                    src: c,
                    id: msg.topCard
                });
+               $("#turnID").html("Turn: "+msg.turn)
                $("#direction").html(msg.direction);
            }
            else if(msg.content==="Round Over"){
@@ -154,6 +162,7 @@ function connect(){
                if(msg.nextRound===id){
                    $("#startBtn").css("visibility","visible")
                }
+               $("#turnID").html("Turn: "+msg.nextRound)
            }
            else if(msg.content==="Game Over"){
                $("#hand").html('');
@@ -190,6 +199,7 @@ function connect(){
                    $("#hand :input").attr("disabled",false);
                    $("#draw").attr("disabled",false);
                }
+               $("#turnID").html("Turn: "+msg.turn)
            }
            else if(msg.content==="2 Played Draw"){
                if(msg.id===id){
@@ -200,11 +210,26 @@ function connect(){
                    $("#draw").attr("disabled",true);
                }
                if(msg.turn===id){
-                   parseStartCards(msg.nextCard)
-                   $("#hand").html("")
-                   addCards();
                    $("#hand :input").attr("disabled",false);
                    $("#draw").attr("disabled",false);
+               }
+               if(msg.extraDrawID===id){
+                   parseStartCards(msg.nextCard)
+                   $("#hand").html("")
+                   addCards()
+               }
+               $("#turnID").html("Turn: "+msg.turn)
+               let c = "/cards/"+msg.topCard+".svg"
+               $(".topCard").attr({
+                   src: c,
+                   id: msg.topCard
+               });
+           }
+           else if(msg.content==="1Played"){
+               if(msg.id===id){
+                   parseStartCards(msg.card)
+                   $("#hand").html("")
+                   addCards()
                }
                let c = "/cards/"+msg.topCard+".svg"
                $(".topCard").attr({

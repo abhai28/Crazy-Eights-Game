@@ -59,6 +59,17 @@ public class GameController {
         String [] car = msg[1].split("");
         String res = game.playCard(gd.getPlayers().get(id-1), msg[1],gd.getTopCard());
         int ci = gd.getPlayers().get(id-1).getCardIndex(car[0],car[1]);
+        if(gd.getTopCard().getRank().equals("2")){
+            if(gd.getPlayers().get(id-1).getTwoPlayed()==0){
+                gd.getPlayers().get(id-1).setTwoPlayed(gd.getPlayers().get(id-1).getTwoPlayed()+1);
+                gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
+                StringBuilder card = new StringBuilder();
+                for(Card c : gd.getPlayers().get(id-1).cards){
+                    card.append(" ").append(c.getRank()).append(c.getSuit());
+                }
+                return new PlayMessage("1Played",String.valueOf(id),card.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
+            }
+        }
         switch(res){
             case"8Played"->{
                 gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
@@ -126,21 +137,25 @@ public class GameController {
                             numCards++;
                         }
                     }
-                    if(numCards==0){
+                    if(numCards<2){
+                        int extraDrawID = gd.getCurrentPlayer();
+                        setNextTurn();
+                        gd.getPlayers().get(gd.getCurrentPlayer()-1).setTwoPlayed(3);
                         if(gd.getCards().size()>=2){
-                            game.drawCard(gd.getCards(),gd.getPlayers().get(gd.getCurrentPlayer()-1));
-                            game.drawCard(gd.getCards(),gd.getPlayers().get(gd.getCurrentPlayer()-1));
+                            game.drawCard(gd.getCards(),gd.getPlayers().get(extraDrawID-1));
+                            game.drawCard(gd.getCards(),gd.getPlayers().get(extraDrawID-1));
                             StringBuilder card2 = new StringBuilder();
-                            for(Card c : gd.getPlayers().get(gd.getCurrentPlayer()-1).cards){
+                            for(Card c : gd.getPlayers().get(extraDrawID-1).cards){
                                 card2.append(" ").append(c.getRank()).append(c.getSuit());
                             }
-                            return new PlayMessage("2 Played Draw",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
+                            return new PlayMessage("2 Played Draw",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit(),String.valueOf(extraDrawID));
                         }
                         else{
                             return getPlayMessage();
                         }
                     }
                     else{
+                        gd.getPlayers().get(gd.getCurrentPlayer()-1).setTwoPlayed(0);
                         return new PlayMessage("Played",String.valueOf(id), card.toString(),String.valueOf(gd.getCurrentPlayer()), gd.getTopCard().getRank()+gd.getTopCard().getSuit());
                     }
 

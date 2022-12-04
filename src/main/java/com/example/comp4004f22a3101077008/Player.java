@@ -10,11 +10,13 @@ public class Player {
     ArrayList<Card> cards;
     private int score;
     private int numDraws;
+    private int twoPlayed;
     public Player(int id){
         this.playerID = id;
         this.cards = new ArrayList<>();
         this.score = 0;
         this.numDraws = 0;
+        this.twoPlayed = 0;
     }
     public Player(int id,String un){
         this.playerID = id;
@@ -22,6 +24,7 @@ public class Player {
         this.score = 0;
         this.username = un;
         this.numDraws = 0;
+        this.twoPlayed = 0;
     }
     public int getID(){
         return this.playerID;
@@ -69,5 +72,13 @@ public class Player {
 
     public void setNumDraws(int numDraws) {
         this.numDraws = numDraws;
+    }
+
+    public int getTwoPlayed() {
+        return twoPlayed;
+    }
+
+    public void setTwoPlayed(int twoPlayed) {
+        this.twoPlayed = twoPlayed;
     }
 }

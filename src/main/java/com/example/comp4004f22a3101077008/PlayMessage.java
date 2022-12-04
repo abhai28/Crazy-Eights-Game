@@ -14,6 +14,7 @@ public class PlayMessage {
     private String winner;
     private String nextRound;
     private String nextCard;
+    private String extraDrawID;
     public PlayMessage() {
     }
     public PlayMessage(String content, String id, String card, String topCard){
@@ -55,6 +56,15 @@ public class PlayMessage {
             this.direction = direction;
             this.topCard = topCard;
         }
+    }
+    public PlayMessage(String content, String id, String card, String turn,String direction, String topCard,String extraID){
+        this.content = content;
+        this.id = id;
+        this.card = card;
+        this.turn = turn;
+        this.nextCard = direction;
+        this.topCard = topCard;
+        this.extraDrawID = extraID;
     }
     public PlayMessage(String content, String id, String card, String turn, String topCard){
         this.content = content;
@@ -99,5 +109,13 @@ public class PlayMessage {
 
     public String getNextCard() {
         return nextCard;
+    }
+
+    public String getExtraDrawID() {
+        return extraDrawID;
+    }
+
+    public void setExtraDrawID(String extraDrawID) {
+        this.extraDrawID = extraDrawID;
     }
 }

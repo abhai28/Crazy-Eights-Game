@@ -32,7 +32,9 @@ body{
 #direction{
     padding-left: 30px;
 }
-
+#turnID{
+    padding-left: 30px;
+}
 #8Played{
     margin-top:40px;
 }
