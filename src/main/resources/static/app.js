@@ -178,8 +178,9 @@ function connect(){
                addScore("3",msg.score3)
                addScore("4",msg.score4)
                let winTag = document.createElement("h1");
-               let textNode = document.createTextNode("WINNER IS PLAYER"+msg.winner);
+               let textNode = document.createTextNode("WINNER IS PLAYER "+msg.winner);
                winTag.appendChild(textNode);
+               winTag.setAttribute("id","winMSG")
                winTag.setAttribute("class","display-1");
                document.getElementById("hand").appendChild(winTag)
            }
