@@ -1101,6 +1101,63 @@ public class AcceptanceTest {
         assertEquals("Player 2: 0",d2.findElement(By.id("p2")).getText());
         assertTrue(d2.findElement(By.id("startBtn")).isDisplayed());
     }
+    @Test
+    @DirtiesContext
+    public void testRow77(){
+        WebDriver d1 = drivers.get(0);
+        WebDriver d2 = drivers.get(1);
+        WebDriver d3 = drivers.get(2);
+        WebDriver d4 = drivers.get(3);
+        d1.get("http://localhost:"+port);
+        String text = d1.findElement(By.id("title")).getText();
+        assertEquals("Crazy Eights",text);
+        d1.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
+
+        d2.get("http://localhost:"+port);
+        d2.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
+
+        d3.get("http://localhost:"+port);
+        d3.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
+
+        d4.get("http://localhost:"+port);
+        d4.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
+
+        //rig game
+        rigTestRow77();
+
+        assertTrue(d1.findElement(By.id("startBtn")).isDisplayed());
+        d1.findElement(By.id("startBtn")).click();
+        text = d1.findElement(By.id("direction")).getText();
+        assertEquals("left",text);
+
+        assertEquals("7C",d1.findElement(By.className("topCard")).getAttribute("id"));
+        d1.findElement(By.id("3C")).click();
+
+
+        assertEquals("Turn: 2", d2.findElement(By.id("turnID")).getText());
+        assertEquals("3C",d2.findElement(By.className("topCard")).getAttribute("id"));
+        d2.findElement(By.id("4C")).click();
+
+        assertEquals("Player 1: 1",d2.findElement(By.id("p1")).getText());
+        assertEquals("Player 2: 0",d2.findElement(By.id("p2")).getText());
+        assertEquals("Player 3: 86",d2.findElement(By.id("p3")).getText());
+        assertEquals("Player 4: 102",d2.findElement(By.id("p4")).getText());
+
+        assertFalse(d1.findElement(By.id("startBtn")).isDisplayed());
+        assertFalse(d2.findElement(By.id("startBtn")).isDisplayed());
+        assertFalse(d3.findElement(By.id("startBtn")).isDisplayed());
+        assertFalse(d4.findElement(By.id("startBtn")).isDisplayed());
+
+        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+    }
+
     public void rigTestRow41(){
         String rigC = "7C AH 9H 3C 2C 5H 4C JS 9D TH KS TS TD 8C 9C 4S 7H AS TC 9S 2D";
         gd.setCards(stringToArray(rigC));
@@ -1342,6 +1399,48 @@ public class AcceptanceTest {
         gd.getPlayers().get(1).setCards(p2rig);
     }
 
+    public void rigTestRow77(){
+        String rigC = "7C 2C KH 8S 9S 6D 3C 7H 7D 9C JS 4C 9C 5D TD JH KS QC 4S AH KC";
+        gd.setCards(stringToArray(rigC));
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
+        ArrayList<Card> rig = new ArrayList<>();
+
+        Card tmpc = new Card("S","A");
+        rig.add(tmpc);
+        tmpc = new Card("C","3");
+        rig.add(tmpc);
+        gd.getPlayers().get(0).setCards(rig);
+
+        rig = new ArrayList<>();
+        tmpc = new Card("C","4");
+        rig.add(tmpc);
+        gd.getPlayers().get(1).setCards(rig);
+
+        rig = new ArrayList<>();
+        tmpc = new Card("H","8");
+        rig.add(tmpc);
+        tmpc = new Card("H","J");
+        rig.add(tmpc);
+        tmpc = new Card("H","6");
+        rig.add(tmpc);
+        tmpc = new Card("H","K");
+        rig.add(tmpc);
+        tmpc = new Card("S","K");
+        rig.add(tmpc);
+        gd.getPlayers().get(2).setCards(rig);
+
+        rig = new ArrayList<>();
+        tmpc = new Card("C","8");
+        rig.add(tmpc);
+        tmpc = new Card("D","8");
+        rig.add(tmpc);
+        tmpc = new Card("D","2");
+        rig.add(tmpc);
+        gd.getPlayers().get(3).setCards(rig);
+    }
 
     public ArrayList<Card> stringToArray(String cards){
         ArrayList<Card> rig = new ArrayList<>();
