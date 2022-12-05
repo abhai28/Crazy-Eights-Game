@@ -51,13 +51,13 @@ public class AcceptanceTest {
         drivers.add(driver3);
         drivers.add(driver4);
     }
-    /*@AfterEach
+    @AfterEach
     public void close(){
         for(WebDriver d : drivers){
 
             d.quit();
         }
-    }*/
+    }
     @Test
     @DirtiesContext
     public void testRow41(){
@@ -527,7 +527,7 @@ public class AcceptanceTest {
     }
     @Test
     @DirtiesContext
-    public void testRow54(){
+    public void testRow54() throws InterruptedException {
         WebDriver d1 = drivers.get(0);
         WebDriver d2 = drivers.get(1);
         WebDriver d3 = drivers.get(2);
@@ -560,6 +560,8 @@ public class AcceptanceTest {
 
         assertEquals("KC",d1.findElement(By.className("topCard")).getAttribute("id"));
         d1.findElement(By.id("5S")).click();
+        Thread.sleep(2000);
+        System.out.println("Alert: "+d1.switchTo().alert().getText());
         assertEquals("Invalid Selection",d1.switchTo().alert().getText());
     }
 
