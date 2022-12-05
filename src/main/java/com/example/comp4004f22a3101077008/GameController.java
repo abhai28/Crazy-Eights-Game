@@ -140,7 +140,6 @@ public class GameController {
                         }
                         if(numCards<2){
                             int extraDrawID = gd.getCurrentPlayer();
-                            setNextTurn();
                             gd.getPlayers().get(gd.getCurrentPlayer()-1).setTwoPlayed(3);
                             if(gd.getCards().size()>=2){
                                 game.drawCard(gd.getCards(),gd.getPlayers().get(extraDrawID-1));
@@ -163,6 +162,7 @@ public class GameController {
                                     return new PlayMessage("2 Played 1", String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
                                 }
                                 else{
+                                    setNextTurn();
                                     return new PlayMessage("2 Played Draw",String.valueOf(id),card.toString(),String.valueOf(gd.getCurrentPlayer()),card2.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit(),String.valueOf(extraDrawID));
                                 }
                             }

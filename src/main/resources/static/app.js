@@ -257,6 +257,12 @@ function connect(){
                    $("#hand :input").attr("disabled",false);
                    $("#draw").attr("disabled",false);
                }
+               $("#turnID").html("Turn: "+msg.turn)
+               let c = "/cards/"+msg.topCard+".svg"
+               $(".topCard").attr({
+                   src: c,
+                   id: msg.topCard
+               });
            }
        })
     });
