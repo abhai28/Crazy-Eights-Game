@@ -230,6 +230,7 @@ function connect(){
                    parseStartCards(msg.card)
                    $("#hand").html("")
                    addCards()
+                   $("#hand :input").attr("disabled",false);
                }
                let c = "/cards/"+msg.topCard+".svg"
                $(".topCard").attr({
