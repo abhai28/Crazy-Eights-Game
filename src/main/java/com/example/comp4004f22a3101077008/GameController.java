@@ -228,6 +228,15 @@ public class GameController {
             return new PlayMessage("Game Over",String.valueOf(gd.getPlayers().get(0).getScore()),String.valueOf(gd.getPlayers().get(1).getScore()),String.valueOf(gd.getPlayers().get(2).getScore()),String.valueOf(gd.getPlayers().get(3).getScore()),String.valueOf(winner.getID()));
         }
         else{
+            ArrayList<Card> tmp = new ArrayList<>();
+            gd.setCards(tmp);
+            game.populateDeck(gd.getCards());
+            game.shuffleDeck(gd.getCards());
+            gd.setTopCard(game.startSetTopCard(gd.getCards()));
+            for(Player p:gd.getPlayers()){
+                p.setCards(tmp);
+                game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+            }
             setNextRound();
             return new PlayMessage("Round Over",String.valueOf(gd.getPlayers().get(0).getScore()),String.valueOf(gd.getPlayers().get(1).getScore()),String.valueOf(gd.getPlayers().get(2).getScore()),String.valueOf(gd.getPlayers().get(3).getScore()),String.valueOf(gd.getNextRound()));
         }
