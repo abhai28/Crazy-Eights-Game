@@ -14,6 +14,8 @@ public class NonRiggedData implements GameData{
 
     int nextRound;
     int currentPlayer;
+
+    int numTwoPlayed;
     public NonRiggedData(){
         players = new ArrayList<>();
         cards = new ArrayList<>();
@@ -21,6 +23,7 @@ public class NonRiggedData implements GameData{
         this.direction = "left";
         this.currentPlayer = 1;
         nextRound = 1;
+        numTwoPlayed = 0;
     }
 
     @Override
@@ -76,5 +79,16 @@ public class NonRiggedData implements GameData{
     }
     public int getNextRound(){return this.nextRound;}
     public void setNextRound(int r){this.nextRound=r;}
+
+    @Override
+    public int getNumTwoPlayed() {
+        return numTwoPlayed;
+    }
+
+    @Override
+    public void setNumTwoPlayed(int t) {
+        numTwoPlayed = t;
+    }
+
 
 }

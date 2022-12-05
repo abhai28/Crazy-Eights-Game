@@ -16,4 +16,6 @@ public interface GameData {
     public int getCurrentPlayer();
     public int getNextRound();
     public void setNextRound(int r);
+    public int getNumTwoPlayed();
+    public void setNumTwoPlayed(int t);
 }
