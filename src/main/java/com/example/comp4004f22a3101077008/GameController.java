@@ -59,6 +59,7 @@ public class GameController {
         String [] car = msg[1].split("");
         int ci = gd.getPlayers().get(id-1).getCardIndex(car[0],car[1]);
         game.resetDraw(gd.getPlayers(),id);
+        gd.setNumTurns(gd.getNumTurns()+1);
         if(car[0].equals("8")){
             if(gd.getNumTwoPlayed()>0){
                 gd.setNumTwoPlayed(0);
@@ -79,15 +80,17 @@ public class GameController {
         }
         else{
             String res = game.playCard(gd.getPlayers().get(id-1), msg[1],gd.getTopCard());
-            if(gd.getTopCard().getRank().equals("2")){
-                if(gd.getPlayers().get(id-1).getTwoPlayed()==0){
-                    gd.getPlayers().get(id-1).setTwoPlayed(gd.getPlayers().get(id-1).getTwoPlayed()+1);
-                    gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
-                    StringBuilder card = new StringBuilder();
-                    for(Card c : gd.getPlayers().get(id-1).cards){
-                        card.append(" ").append(c.getRank()).append(c.getSuit());
+            if(gd.getNumTurns()>1){
+                if(gd.getTopCard().getRank().equals("2")){
+                    if(gd.getPlayers().get(id-1).getTwoPlayed()==0){
+                        gd.getPlayers().get(id-1).setTwoPlayed(gd.getPlayers().get(id-1).getTwoPlayed()+1);
+                        gd.setTopCard(gd.getPlayers().get(id-1).cards.remove(ci));
+                        StringBuilder card = new StringBuilder();
+                        for(Card c : gd.getPlayers().get(id-1).cards){
+                            card.append(" ").append(c.getRank()).append(c.getSuit());
+                        }
+                        return new PlayMessage("1Played",String.valueOf(id),card.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
                     }
-                    return new PlayMessage("1Played",String.valueOf(id),card.toString(),gd.getTopCard().getRank()+gd.getTopCard().getSuit());
                 }
             }
             switch(res){
@@ -234,6 +237,7 @@ public class GameController {
             game.populateDeck(gd.getCards());
             game.shuffleDeck(gd.getCards());
             gd.setTopCard(game.startSetTopCard(gd.getCards()));
+            gd.setNumTurns(0);
             for(Player p:gd.getPlayers()){
                 p.resetCards();
                 game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);

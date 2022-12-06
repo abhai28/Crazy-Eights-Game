@@ -18,4 +18,6 @@ public interface GameData {
     public void setNextRound(int r);
     public int getNumTwoPlayed();
     public void setNumTwoPlayed(int t);
+    public int getNumTurns();
+    public void setNumTurns(int num);
 }
