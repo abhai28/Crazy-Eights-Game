@@ -35,7 +35,6 @@ public class AcceptanceTest {
     ChromeOptions chromeOptions;
     @BeforeEach
     public void loadWebDriver(){
-        //System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
         WebDriverManager.chromedriver().setup();
         chromeOptions = new ChromeOptions();
         drivers = new ArrayList<>();
@@ -1152,10 +1151,153 @@ public class AcceptanceTest {
         assertFalse(d3.findElement(By.id("startBtn")).isDisplayed());
         assertFalse(d4.findElement(By.id("startBtn")).isDisplayed());
 
+        assertEquals("WINNER IS PLAYER 2",d1.findElement(By.id("winMSG")).getAttribute("innerHTML"));
         assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
-        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
-        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
-        assertEquals("WINNER IS PLAYER 2",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 2",d3.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 2",d4.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+    }
+
+    @Test
+    @DirtiesContext
+    public void testRow80(){
+        WebDriver d1 = drivers.get(0);
+        WebDriver d2 = drivers.get(1);
+        WebDriver d3 = drivers.get(2);
+        WebDriver d4 = drivers.get(3);
+        d1.get("http://localhost:"+port);
+        String text = d1.findElement(By.id("title")).getText();
+        assertEquals("Crazy Eights",text);
+        d1.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
+
+        d2.get("http://localhost:"+port);
+        d2.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
+
+        d3.get("http://localhost:"+port);
+        d3.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
+
+        d4.get("http://localhost:"+port);
+        d4.findElement(By.id("usernameBtn")).click();
+        assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
+
+        rigTestRow80R1();
+
+        assertTrue(d1.findElement(By.id("startBtn")).isDisplayed());
+        d1.findElement(By.id("startBtn")).click();
+        text = d1.findElement(By.id("direction")).getText();
+        assertEquals("left",text);
+
+        assertEquals("4D",d1.findElement(By.className("topCard")).getAttribute("id"));
+
+        d1.findElement(By.id("4H")).click();
+        d2.findElement(By.id("4S")).click();
+        d3.findElement(By.id("9S")).click();
+
+        d4.findElement(By.id("draw")).click();
+        assertTrue(d4.findElements(By.id("2C")).size()>0);
+        d4.findElement(By.id("draw")).click();
+        assertTrue(d4.findElements(By.id("3C")).size()>0);
+        d4.findElement(By.id("draw")).click();
+        assertTrue(d4.findElements(By.id("4C")).size()>0);
+
+        d1.findElement(By.id("7S")).click();
+        d2.findElement(By.id("6S")).click();
+        d3.findElement(By.id("6C")).click();
+        d4.findElement(By.id("2C")).click();
+        assertTrue(d1.findElements(By.id("TC")).size()>0);
+        assertTrue(d1.findElements(By.id("JC")).size()>0);
+
+        d1.findElement(By.id("JC")).click();
+        d2.findElement(By.id("KC")).click();
+        d3.findElement(By.id("9C")).click();
+        d4.findElement(By.id("3C")).click();
+
+        d1.findElement(By.id("draw")).click();
+        assertTrue(d1.findElements(By.id("7C")).size()>0);
+
+        d1.findElement(By.id("7C")).click();
+        d2.findElement(By.id("8H")).click();
+        d2.findElement(By.id("diamond")).click();
+        assertEquals("D",d3.findElement(By.className("topCard")).getAttribute("id"));
+        d3.findElement(By.id("JD")).click();
+        d4.findElement(By.id("7D")).click();
+
+        d1.findElement(By.id("9D")).click();
+        d2.findElement(By.id("TD")).click();
+
+        assertEquals("Player 1: 21",d1.findElement(By.id("p1")).getText());
+        assertEquals("Player 2: 0",d2.findElement(By.id("p2")).getText());
+        assertEquals("Player 3: 3",d3.findElement(By.id("p3")).getText());
+        assertEquals("Player 4: 39",d4.findElement(By.id("p4")).getText());
+        assertTrue(d2.findElement(By.id("startBtn")).isDisplayed());
+
+        rigTestRow80R2();
+
+        d2.findElement(By.id("startBtn")).click();
+
+        assertEquals("TD",d1.findElement(By.className("topCard")).getAttribute("id"));
+        assertEquals("Turn: 2",d2.findElement(By.id("turnID")).getText());
+
+        d2.findElement(By.id("9D")).click();
+        d3.findElement(By.id("3D")).click();
+        d4.findElement(By.id("4D")).click();
+
+        d1.findElement(By.id("4S")).click();
+        d2.findElement(By.id("3S")).click();
+        d3.findElement(By.id("9S")).click();
+        d4.findElement(By.id("7S")).click();
+
+        d1.findElement(By.id("7C")).click();
+        d2.findElement(By.id("9C")).click();
+        d3.findElement(By.id("3C")).click();
+        d4.findElement(By.id("4C")).click();
+
+        d1.findElement(By.id("4H")).click();
+        d2.findElement(By.id("3H")).click();
+        d3.findElement(By.id("9H")).click();
+
+        d4.findElement(By.id("draw")).click();
+        assertTrue(d4.findElements(By.id("KS")).size()>0);
+        d4.findElement(By.id("draw")).click();
+        assertTrue(d4.findElements(By.id("QS")).size()>0);
+        d4.findElement(By.id("draw")).click();
+        assertTrue(d4.findElements(By.id("KH")).size()>0);
+        d4.findElement(By.id("KH")).click();
+
+        d1.findElement(By.id("draw")).click();
+        assertTrue(d1.findElements(By.id("6D")).size()>0);
+        d1.findElement(By.id("draw")).click();
+        assertTrue(d1.findElements(By.id("QD")).size()>0);
+        d1.findElement(By.id("draw")).click();
+        assertTrue(d1.findElements(By.id("JD")).size()>0);
+        assertEquals("Turn: 2",d2.findElement(By.id("turnID")).getText());
+
+        d2.findElement(By.id("draw")).click();
+        assertTrue(d2.findElements(By.id("6S")).size()>0);
+        d2.findElement(By.id("draw")).click();
+        assertTrue(d2.findElements(By.id("JS")).size()>0);
+        d2.findElement(By.id("draw")).click();
+        assertTrue(d2.findElements(By.id("TS")).size()>0);
+        assertEquals("Turn: 3",d3.findElement(By.id("turnID")).getText());
+
+        d3.findElement(By.id("5H")).click();
+
+        assertEquals("Player 1: 59",d1.findElement(By.id("p1")).getText());
+        assertEquals("Player 2: 36",d2.findElement(By.id("p2")).getText());
+        assertEquals("Player 3: 3",d3.findElement(By.id("p3")).getText());
+        assertEquals("Player 4: 114",d4.findElement(By.id("p4")).getText());
+
+        assertFalse(d1.findElement(By.id("startBtn")).isDisplayed());
+        assertFalse(d2.findElement(By.id("startBtn")).isDisplayed());
+        assertFalse(d3.findElement(By.id("startBtn")).isDisplayed());
+        assertFalse(d4.findElement(By.id("startBtn")).isDisplayed());
+
+        assertEquals("WINNER IS PLAYER 3",d1.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 3",d2.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 3",d3.findElement(By.id("winMSG")).getAttribute("innerHTML"));
+        assertEquals("WINNER IS PLAYER 3",d4.findElement(By.id("winMSG")).getAttribute("innerHTML"));
     }
 
     public void rigTestRow41(){
@@ -1385,7 +1527,7 @@ public class AcceptanceTest {
         gd.getPlayers().get(1).setCards(p2rig);
     }
     public void rigTestRow73(){
-        String rigC = "7C 2C KH 8S 9S 6D 3C 7H 7D 9C JS 4C 9C 5D TD JH KS QC 4S AH KC";
+        String rigC = "7C 2C KH 8S 9S 6D 3C 7H 7D 9C JS 4C 9C 5D TD JH AS QC 4S AH AC";
         gd.setCards(stringToArray(rigC));
         gd.setTopCard(game.startSetTopCard(gd.getCards()));
         for(Player p : gd.getPlayers()){
@@ -1442,6 +1584,22 @@ public class AcceptanceTest {
         gd.getPlayers().get(3).setCards(rig);
     }
 
+    public void rigTestRow80R1(){
+        String rigC = "4D 4H 7S 5D 6D 9D 4S 6S KC 8H TD 9S 6C 9C JD 3H 7D JH QH KH 5C 2C 3C 4C TC JC 7C 8C KD";
+        gd.setCards(stringToArray(rigC));
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
+    }
+    public void rigTestRow80R2(){
+        String rigC = "TD 7D 4S 7C 4H 5D 9D 3S 9C 3H JC 3D 9S 3C 9H 5H 4D 7S 4C 5S 8D KS QS KH 6D QD JD 6S JS TS";
+        gd.setCards(stringToArray(rigC));
+        gd.setTopCard(game.startSetTopCard(gd.getCards()));
+        for(Player p : gd.getPlayers()){
+            game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
+        }
+    }
     public ArrayList<Card> stringToArray(String cards){
         ArrayList<Card> rig = new ArrayList<>();
         for(String car:cards.split(" ")){
