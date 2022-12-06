@@ -15,13 +15,6 @@ public class GameTest {
         assertEquals(52,gd.getCards().size());
     }
     @Test
-    void testShuffleDeck(){
-        game.populateDeck(gd.getCards());
-        String r = gd.getCards().get(0).getRank();
-        game.shuffleDeck(gd.getCards());
-        assertNotEquals(r,gd.getCards().get(0).getRank());
-    }
-    @Test
     void testDealCards(){
         ArrayList<Player> ps = new ArrayList<>();
         for(int i=0;i<4;i++){

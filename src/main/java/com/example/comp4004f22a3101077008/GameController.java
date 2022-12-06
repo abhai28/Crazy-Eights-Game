@@ -234,7 +234,7 @@ public class GameController {
             game.shuffleDeck(gd.getCards());
             gd.setTopCard(game.startSetTopCard(gd.getCards()));
             for(Player p:gd.getPlayers()){
-                p.setCards(tmp);
+                p.resetCards();
                 game.startDealCards(gd.getCards(),gd.getPlayers(),p.getID()-1);
             }
             setNextRound();
@@ -248,7 +248,6 @@ public class GameController {
         int id = Integer.parseInt(message.getMessage());
         boolean gameState = game.drawCard(gd.getCards(),gd.getPlayers().get(id-1));
         game.incrementDraw(gd.getPlayers(),id);
-        System.out.println(gd.getPlayers().get(id-1).getNumDraws());
         if(gameState){
             if(gd.getPlayers().get(id-1).getNumDraws()>=3){
                 game.resetDraw(gd.getPlayers(),id);

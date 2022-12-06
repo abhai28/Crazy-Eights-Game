@@ -68,6 +68,9 @@ public class Player {
     public void setCards(ArrayList<Card> c){
         this.cards = c;
     }
+    public void resetCards(){
+        this.cards = new ArrayList<>();
+    }
     public int getNumDraws() {
         return numDraws;
     }
