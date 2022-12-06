@@ -58,6 +58,7 @@ public class GameController {
         int id = Integer.parseInt(msg[0]);
         String [] car = msg[1].split("");
         int ci = gd.getPlayers().get(id-1).getCardIndex(car[0],car[1]);
+        game.resetDraw(gd.getPlayers(),id);
         if(car[0].equals("8")){
             if(gd.getNumTwoPlayed()>0){
                 gd.setNumTwoPlayed(0);

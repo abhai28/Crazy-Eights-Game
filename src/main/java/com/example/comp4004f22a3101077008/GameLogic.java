@@ -157,7 +157,7 @@ public class GameLogic{
     public void calculateScore(ArrayList<Player> players){
         for(Player p : players){
             if(p.handSize()==0){
-                p.setScore(0);
+                p.setScore(p.getScore());
             }
             else{
                 int score = 0;
@@ -181,7 +181,7 @@ public class GameLogic{
                         }
                     }
                 }
-                p.setScore(score);
+                p.setScore(p.getScore()+score);
             }
         }
     }
