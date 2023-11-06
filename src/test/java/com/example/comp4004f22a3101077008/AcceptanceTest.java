@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -32,19 +34,22 @@ public class AcceptanceTest {
     int port;
 
     ArrayList<WebDriver> drivers;
-    ChromeOptions chromeOptions;
+    FirefoxOptions chromeOptions;
     @BeforeEach
     public void loadWebDriver(){
-        WebDriverManager.chromedriver().setup();
-        chromeOptions = new ChromeOptions();
+        System.setProperty("webdriver.gecko.driver","C:\\Users\\abhai\\Downloads\\geckodriver-v0.33.0-win64");
+        WebDriverManager.firefoxdriver().setup();
+
+        chromeOptions = new FirefoxOptions();
         drivers = new ArrayList<>();
-        chromeOptions.setImplicitWaitTimeout(Duration.ofSeconds(20));
-        chromeOptions.setPageLoadTimeout(Duration.ofSeconds(20));
-        WebDriver driver1 = new ChromeDriver(chromeOptions);
+        chromeOptions.setImplicitWaitTimeout(Duration.ofSeconds(600));
+        chromeOptions.setPageLoadTimeout(Duration.ofSeconds(1000));
+
+        WebDriver driver1 = new FirefoxDriver(chromeOptions);
         drivers.add(driver1);
-        WebDriver driver2 = new ChromeDriver(chromeOptions);
-        WebDriver driver3 = new ChromeDriver(chromeOptions);
-        WebDriver driver4 = new ChromeDriver(chromeOptions);
+        WebDriver driver2 = new FirefoxDriver(chromeOptions);
+        WebDriver driver3 = new FirefoxDriver(chromeOptions);
+        WebDriver driver4 = new FirefoxDriver(chromeOptions);
 
         drivers.add(driver2);
         drivers.add(driver3);
@@ -65,21 +70,27 @@ public class AcceptanceTest {
         WebDriver d3 = drivers.get(2);
         WebDriver d4 = drivers.get(3);
         d1.get("http://localhost:"+port);
+
+        //Before clicking the register button make the selenium wait till register button is clickable this is because it needs to wait till client is connected to server
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -118,19 +129,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -185,19 +200,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -238,19 +257,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -299,19 +322,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -363,19 +390,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -418,19 +449,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -456,19 +491,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -494,19 +533,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -534,19 +577,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -574,19 +621,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -613,19 +664,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -654,19 +709,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -697,19 +756,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -740,19 +803,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -783,19 +850,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -823,19 +894,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -866,19 +941,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -913,19 +992,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -964,19 +1047,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -1017,19 +1104,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -1063,19 +1154,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -1110,19 +1205,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         //rig game
@@ -1167,19 +1266,23 @@ public class AcceptanceTest {
         d1.get("http://localhost:"+port);
         String text = d1.findElement(By.id("title")).getText();
         assertEquals("Crazy Eights",text);
-        d1.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait = new WebDriverWait(d1, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 1",d1.findElement(By.id("playerID")).getText());
 
         d2.get("http://localhost:"+port);
-        d2.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait2 = new WebDriverWait(d2, Duration.ofSeconds(100));
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 2",d2.findElement(By.id("playerID")).getText());
 
         d3.get("http://localhost:"+port);
-        d3.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait3 = new WebDriverWait(d3, Duration.ofSeconds(100));
+        wait3.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 3",d3.findElement(By.id("playerID")).getText());
 
         d4.get("http://localhost:"+port);
-        d4.findElement(By.id("usernameBtn")).click();
+        WebDriverWait wait4 = new WebDriverWait(d4, Duration.ofSeconds(100));
+        wait4.until(ExpectedConditions.elementToBeClickable(By.id("usernameBtn"))).click();
         assertEquals("Player: 4",d4.findElement(By.id("playerID")).getText());
 
         rigTestRow80R1();
