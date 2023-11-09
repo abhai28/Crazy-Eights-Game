@@ -161,6 +161,10 @@ function setupSubscriptions(){
       x.setAttribute("id", "direction");
       x.appendChild(t);
       document.getElementById("nav").appendChild(x);
+      if(document.getElementById("turnID")!==null){
+        const element = document.getElementById("turnID")
+        element.remove();
+      }
       let m = document.createElement("LABEL");
       let k = document.createTextNode("Turn: " + msg.currentPlayer);
       m.setAttribute("id", "turnID");
