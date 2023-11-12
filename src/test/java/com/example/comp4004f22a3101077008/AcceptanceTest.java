@@ -1,11 +1,12 @@
 package com.example.comp4004f22a3101077008;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,22 +35,22 @@ public class AcceptanceTest {
     int port;
 
     ArrayList<WebDriver> drivers;
-    FirefoxOptions chromeOptions;
+    ChromeOptions chromeOptions;
     @BeforeEach
     public void loadWebDriver(){
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\abhai\\Downloads\\geckodriver-v0.33.0-win64");
-        WebDriverManager.firefoxdriver().setup();
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\abhai\\Downloads\\chromedriver-win64\\chromedriver.exe");
 
-        chromeOptions = new FirefoxOptions();
+        chromeOptions = new ChromeOptions();
         drivers = new ArrayList<>();
+        chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.setImplicitWaitTimeout(Duration.ofSeconds(600));
         chromeOptions.setPageLoadTimeout(Duration.ofSeconds(1000));
 
-        WebDriver driver1 = new FirefoxDriver(chromeOptions);
+        WebDriver driver1 = new ChromeDriver(chromeOptions);
         drivers.add(driver1);
-        WebDriver driver2 = new FirefoxDriver(chromeOptions);
-        WebDriver driver3 = new FirefoxDriver(chromeOptions);
-        WebDriver driver4 = new FirefoxDriver(chromeOptions);
+        WebDriver driver2 = new ChromeDriver(chromeOptions);
+        WebDriver driver3 = new ChromeDriver(chromeOptions);
+        WebDriver driver4 = new ChromeDriver(chromeOptions);
 
         drivers.add(driver2);
         drivers.add(driver3);
