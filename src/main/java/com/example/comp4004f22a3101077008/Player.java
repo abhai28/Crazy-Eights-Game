@@ -4,6 +4,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+/*
+ * Player class
+ * This class is used to handle the player data
+ * It is used to set and get the player ID, username, cards, score, number of draws, and number of twos played.
+ */
 public class Player {
     private final int playerID;
     private String username;

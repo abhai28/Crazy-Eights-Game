@@ -1,5 +1,17 @@
 package com.example.comp4004f22a3101077008;
-
+/*
+ * This is the DrawMessage class. It is responsible for creating a DrawMessage object.
+ * It has three attributes: content, id, and card.
+ * It has two constructors: one with no parameters and one with three parameters.
+ * It has three methods: getContent(), getId(), and getCard().
+ * The content attribute is used to store the content of the message.
+ * The id attribute is used to store the id of the user who the message corresponds to.
+ * The card attribute is used to store the card drawn.
+ * The getContent() method is used to return the content of the message.
+ * The getId() method is used to return the id of the user who the message corresponds to.
+ * The getCard() method is used to return the card drawn.
+ * The DrawMessage object is used to send a message to the client which includes the card drawn.
+ */
 public class DrawMessage {
     private String content;
     private String id;

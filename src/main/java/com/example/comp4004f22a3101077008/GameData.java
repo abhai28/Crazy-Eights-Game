@@ -1,7 +1,9 @@
 package com.example.comp4004f22a3101077008;
 
 import java.util.ArrayList;
-
+/*
+ * GameData interface
+ */
 public interface GameData {
     public Card getTopCard();
     public void setTopCard(Card c);
@@ -20,4 +22,7 @@ public interface GameData {
     public void setNumTwoPlayed(int t);
     public int getNumTurns();
     public void setNumTurns(int num);
+
+    public void setTotalTwoPlayed(int num);
+    public int getTotalTwoPlayed();
 }

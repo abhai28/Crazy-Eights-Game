@@ -4,6 +4,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
+/*
+ * NonRiggedData class
+ * This class is used to handle the game data
+ * It is used to set and get the top card, players, cards, direction, current player, next round, number of twos played, number of turns, and total number of twos played.
+ * It is set as a component so that it can be autowired in other classes. This is done to avoid creating multiple instances of the class.
+ * The @Component annotation is used to indicate that the class is a component. It is used to auto-detect and auto-configure beans using classpath scanning.
+ */
 @Component
 public class NonRiggedData implements GameData{
     ArrayList<Player> players;
@@ -17,6 +24,7 @@ public class NonRiggedData implements GameData{
 
     int numTwoPlayed;
     int numTurns;
+    int totalTwoPlayed;
     public NonRiggedData(){
         players = new ArrayList<>();
         cards = new ArrayList<>();
@@ -26,6 +34,7 @@ public class NonRiggedData implements GameData{
         nextRound = 1;
         numTwoPlayed = 0;
         numTurns = 0;
+        totalTwoPlayed = 0;
     }
 
     @Override
@@ -100,6 +109,16 @@ public class NonRiggedData implements GameData{
     @Override
     public void setNumTurns(int num) {
         this.numTurns = num;
+    }
+
+    @Override
+    public void setTotalTwoPlayed(int num) {
+        this.totalTwoPlayed=num;
+    }
+
+    @Override
+    public int getTotalTwoPlayed() {
+        return this.totalTwoPlayed;
     }
 
 
